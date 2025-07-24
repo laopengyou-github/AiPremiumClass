@@ -1,0 +1,80 @@
+/opt/anaconda3/envs/AI/bin/python /Users/olaole/PycharmProjects/NLP_TRAIN/aiba/week16/nano-gpt2.py
+Using device: cpu
+Using 557697 characters (50.0% of original data)
+step 0: train loss 4.5661, val loss 4.5589
+step 200: train loss 2.8365, val loss 2.8341
+step 400: train loss 2.6275, val loss 2.6603
+step 600: train loss 2.5143, val loss 2.5465
+step 800: train loss 2.4219, val loss 2.4706
+step 1000: train loss 2.3546, val loss 2.4108
+step 1200: train loss 2.3199, val loss 2.3578
+step 1400: train loss 2.2784, val loss 2.3447
+step 1600: train loss 2.2472, val loss 2.3005
+step 1800: train loss 2.2284, val loss 2.2865
+step 2000: train loss 2.1879, val loss 2.2566
+step 2200: train loss 2.1729, val loss 2.2445
+step 2400: train loss 2.1479, val loss 2.2252
+step 2600: train loss 2.1375, val loss 2.2239
+step 2800: train loss 2.1131, val loss 2.2011
+step 3000: train loss 2.1027, val loss 2.1965
+step 3200: train loss 2.1098, val loss 2.1778
+step 3400: train loss 2.0878, val loss 2.1630
+step 3600: train loss 2.0806, val loss 2.1587
+step 3800: train loss 2.0650, val loss 2.1511
+step 4000: train loss 2.0621, val loss 2.1411
+step 4200: train loss 2.0594, val loss 2.1357
+step 4400: train loss 2.0523, val loss 2.1349
+step 4600: train loss 2.0357, val loss 2.1238
+step 4800: train loss 2.0358, val loss 2.1222
+step 5000: train loss 2.0373, val loss 2.1336
+step 5200: train loss 2.0246, val loss 2.1121
+step 5400: train loss 2.0333, val loss 2.1133
+step 5600: train loss 2.0099, val loss 2.1068
+step 5800: train loss 2.0184, val loss 2.0970
+step 6000: train loss 2.0069, val loss 2.1073
+step 6200: train loss 1.9993, val loss 2.0848
+step 6400: train loss 1.9940, val loss 2.0950
+step 6600: train loss 1.9972, val loss 2.0815
+step 6800: train loss 1.9878, val loss 2.0716
+step 7000: train loss 1.9899, val loss 2.0845
+step 7200: train loss 1.9796, val loss 2.0748
+step 7400: train loss 1.9923, val loss 2.0718
+step 7600: train loss 1.9790, val loss 2.0640
+step 7800: train loss 1.9618, val loss 2.0544
+step 8000: train loss 1.9539, val loss 2.0470
+step 8200: train loss 1.9651, val loss 2.0538
+step 8400: train loss 1.9538, val loss 2.0454
+step 8600: train loss 1.9526, val loss 2.0635
+step 8800: train loss 1.9521, val loss 2.0306
+step 9000: train loss 1.9498, val loss 2.0452
+step 9200: train loss 1.9422, val loss 2.0396
+step 9400: train loss 1.9445, val loss 2.0381
+step 9600: train loss 1.9435, val loss 2.0360
+step 9800: train loss 1.9433, val loss 2.0276
+
+LORICHARD III:
+Yet, chour good tam AUMER:
+Thir Godck of witark, migries a my bure heals areriedy amin.
+
+BURETH:
+And.
+
+But shight
+YORCIUS:
+CORK:
+Wesarcacery teto thon'se thery:
+Forstis that in the ish
+Lereal brovy?
+The do-span the, a salkind ins god purs:
+And and, sllsto ung by thave reopery,
+Tis vess inf,
+
+GOF, thee reaseque fle outilh ouse poweraturemmake! No;
+Whaond
+Al'd her
+Of ca'd whe lears, and smain of anumeto a we in the slak'd rfe's?
+
+CORASTESSICANUS: reath teast uppit loudh pameder,
+Far
+
+Process finished with exit code 0

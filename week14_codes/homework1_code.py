@@ -66,4 +66,8 @@ if __name__ == '__main__':
             },
             config={'configurable':{'session_id': session_id}})
 
+<<<<<<< HEAD
         print('AI Message:', response)
+=======
+        print('AI Message:', response)
+>>>>>>> 8b53e9def6551d9477c9e11141b0fae294f5a9be

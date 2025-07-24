@@ -1,0 +1,2 @@
+FAISS.from_document根本不支持其他embedding对象,特别是zhipuembedding
+希望老师讲讲其他模型的代码咋写

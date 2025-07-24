@@ -1,0 +1,15 @@
+23:10:36,773 graphrag.cli.index INFO Logging enabled at F:\githubProject\AiPremiumClass\ÁºÈñ½­\week15\ragtest\logs\indexing-engine.log
+23:10:38,730 openai._base_client INFO Retrying request to /chat/completions in 0.432347 seconds
+23:10:39,384 openai._base_client INFO Retrying request to /chat/completions in 0.876540 seconds
+23:10:40,475 openai._base_client INFO Retrying request to /chat/completions in 1.500183 seconds
+23:10:44,242 openai._base_client INFO Retrying request to /chat/completions in 3.781765 seconds
+23:10:48,266 openai._base_client INFO Retrying request to /chat/completions in 6.700432 seconds
+23:10:55,195 openai._base_client INFO Retrying request to /chat/completions in 7.215461 seconds
+23:11:03,103 openai._base_client INFO Retrying request to /chat/completions in 6.433878 seconds
+23:11:09,795 openai._base_client INFO Retrying request to /chat/completions in 6.004271 seconds
+23:11:16,8 openai._base_client INFO Retrying request to /chat/completions in 7.598553 seconds
+23:11:24,48 openai._base_client INFO Retrying request to /chat/completions in 7.717101 seconds
+19:42:19,410 graphrag.cli.index INFO Logging enabled at F:\githubProject\AiPremiumClass\ÁºÈñ½­\week15\ragtest\logs\indexing-engine.log
+19:42:22,600 httpx INFO HTTP Request: POST https://oa.api2d.net/chat/completions "HTTP/1.1 402 Payment Required"
+19:44:11,301 graphrag.cli.index INFO Logging enabled at F:\githubProject\AiPremiumClass\ÁºÈñ½­\week15\ragtest\logs\indexing-engine.log
+19:44:13,832 httpx INFO HTTP Request: POST https://oa.api2d.net/chat/completions "HTTP/1.1 402 Payment Required"

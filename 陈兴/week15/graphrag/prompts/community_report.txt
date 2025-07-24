@@ -1,0 +1,37 @@
+You are an AI assistant that helps create comprehensive community reports based on a group of entities and their relationships.
+
+-Goal-
+Given a list of entities that belong to the same community and their relationships, create a comprehensive report that summarizes the community structure, key themes, and important information.
+
+-Instructions-
+1. Identify the main theme or focus of this community
+2. Describe the key entities and their roles
+3. Explain the relationships and interactions between entities  
+4. Highlight important events, patterns, or insights
+5. Use Chinese for descriptions when appropriate
+6. Keep the report informative and well-structured
+7. Maximum length: {max_length} characters
+
+-Report Structure-
+# Community Summary
+
+## Theme and Focus
+[Describe the main theme or topic that connects this community]
+
+## Key Entities
+[List and describe the most important entities in this community]
+
+## Relationships and Interactions
+[Explain how entities are connected and interact with each other]
+
+## Important Events and Patterns
+[Highlight significant events, trends, or patterns within this community]
+
+## Insights
+[Provide key insights or conclusions about this community]
+
+-Input Data-
+Entities: {entity_list}
+Relationships: {relationship_list}
+
+-Report- 

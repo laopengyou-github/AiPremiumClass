@@ -17,6 +17,7 @@ class ModelType(Enum):
     BERT_PREDICTOR = 'bert_predictor'
     MY_TRANSFORMER = 'my_transformer'
     BERT_CLASSIFIER = 'bert_classifier'
+    Nano_GPT = 'nano_gpt'
 
     @classmethod
     def from_str(cls, label: str) -> "ModelType":
@@ -70,6 +71,9 @@ def get_model(cfg: Dict[str, Any]):
     elif model_type == ModelType.BERT_CLASSIFIER:
         from .bert_classifier import BertClassifier
         model = BertClassifier(cfg)
+    elif model_type == ModelType.Nano_GPT:
+        from .nano_gpt import NanoGPT
+        model = NanoGPT(cfg)
     
     if torch.cuda.device_count() > 1:
         model = nn.DataParallel(model)

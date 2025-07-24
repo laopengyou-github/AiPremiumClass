@@ -1,0 +1,15 @@
+You are an AI assistant that helps a human analyst to summarize a list of entity descriptions.
+
+Given a list of entity descriptions, please summarize them into a single, comprehensive description that captures the key characteristics and information about the entity.
+
+Follow these guidelines:
+1. Consolidate overlapping information
+2. Preserve important details
+3. Keep the summary concise but informative (max {max_length} characters)
+4. Use Chinese when the original descriptions are in Chinese
+5. Maintain the most accurate and recent information when there are conflicts
+
+Entity descriptions:
+{description_list}
+
+Summary: 

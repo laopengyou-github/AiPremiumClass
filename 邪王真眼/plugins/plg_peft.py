@@ -1,5 +1,4 @@
 from enum import Enum
-from peft import LoraConfig, get_peft_model, PromptTuningConfig, PrefixTuningConfig, PromptEncoderConfig 
 
 from .plugins_base import PluginBase
 from trainer.trainer import PluginType, TrainContext
@@ -18,6 +17,7 @@ class PluginPEFT(PluginBase):
     }
 
     def replace_model(self, ctx: TrainContext):
+        from peft import LoraConfig, get_peft_model, PromptTuningConfig, PrefixTuningConfig, PromptEncoderConfig 
         tuning_tactics = ctx.cfg.get("tuning_tactics")
         if tuning_tactics == TuningTactics.LORA_TUNING:
             peft_config = LoraConfig(

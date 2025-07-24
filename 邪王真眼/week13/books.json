@@ -1,0 +1,102 @@
+[
+  {
+    "title": "三体",
+    "quantity": 5,
+    "genre": "科幻"
+  },
+  {
+    "title": "活着",
+    "quantity": 8,
+    "genre": "文学"
+  },
+  {
+    "title": "红楼梦",
+    "quantity": 10,
+    "genre": "古典"
+  },
+  {
+    "title": "小王子",
+    "quantity": 7,
+    "genre": "童话"
+  },
+  {
+    "title": "百年孤独",
+    "quantity": 4,
+    "genre": "魔幻"
+  },
+  {
+    "title": "西游记",
+    "quantity": 1,
+    "genre": "神话"
+  },
+  {
+    "title": "白夜行",
+    "quantity": 3,
+    "genre": "悬疑"
+  },
+  {
+    "title": "人类简史",
+    "quantity": 9,
+    "genre": "历史"
+  },
+  {
+    "title": "围城",
+    "quantity": 5,
+    "genre": "文学"
+  },
+  {
+    "title": "时间简史",
+    "quantity": 4,
+    "genre": "科普"
+  },
+  {
+    "title": "平凡的世界",
+    "quantity": 6,
+    "genre": "现实"
+  },
+  {
+    "title": "解忧杂货店",
+    "quantity": 5,
+    "genre": "治愈"
+  },
+  {
+    "title": "天龙八部",
+    "quantity": 7,
+    "genre": "武侠"
+  },
+  {
+    "title": "沉默的大多数",
+    "quantity": 3,
+    "genre": "杂文"
+  },
+  {
+    "title": "明朝那些事儿",
+    "quantity": 8,
+    "genre": "历史"
+  },
+  {
+    "title": "撒哈拉的故事",
+    "quantity": 4,
+    "genre": "散文"
+  },
+  {
+    "title": "嫌疑人X的献身",
+    "quantity": 5,
+    "genre": "推理"
+  },
+  {
+    "title": "看见",
+    "quantity": 6,
+    "genre": "纪实"
+  },
+  {
+    "title": "许三观卖血记",
+    "quantity": 4,
+    "genre": "现实"
+  },
+  {
+    "title": "挪威的森林",
+    "quantity": 7,
+    "genre": "爱情"
+  }
+]

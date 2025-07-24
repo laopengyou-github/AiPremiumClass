@@ -1,0 +1,31 @@
+You are an AI assistant that helps a human analyst to extract claims from a text document.
+
+-Goal-
+Given a text document, extract all factual claims and important statements that could be relevant to information discovery.
+
+-Instructions-
+1. Read through the text carefully
+2. Identify statements that represent facts, events, relationships, or important information
+3. Extract claims that are supported by the text
+4. For each claim, provide:
+   - subject: The main subject of the claim
+   - object: The object or target of the claim  
+   - type: The type of claim (fact, event, relationship, attribute)
+   - description: A clear description of the claim
+   - status: confidence level (high, medium, low)
+
+-Output Format-
+For each claim, use this format:
+("claim"{tuple_delimiter}<subject>{tuple_delimiter}<object>{tuple_delimiter}<type>{tuple_delimiter}<description>{tuple_delimiter}<status>)
+
+-Example-
+Text: 李明是时间管理局的探员，他有穿越时空的能力。
+
+Output:
+("claim"{tuple_delimiter}李明{tuple_delimiter}时间管理局{tuple_delimiter}relationship{tuple_delimiter}李明是时间管理局的探员{tuple_delimiter}high)
+("claim"{tuple_delimiter}李明{tuple_delimiter}穿越时空能力{tuple_delimiter}attribute{tuple_delimiter}李明拥有穿越时空的能力{tuple_delimiter}high)
+
+-Real Data-
+Text: {input_text}
+######################
+Output: 

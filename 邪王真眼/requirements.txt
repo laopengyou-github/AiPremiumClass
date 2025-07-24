@@ -1,0 +1,14 @@
+scikit-learn==1.0.2
+gensim==4.1.2
+pandas==1.5.3
+peft==0.12.0
+
+
+
+
+python==3.9.23
+torch==2.7.1+cu128
+evaluate==0.4.3
+seqeval==1.2.2
+numpy==1.26.3
+transformers==4.52.4

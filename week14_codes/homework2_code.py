@@ -52,7 +52,7 @@ def consult_book(books, user_query, chat_history=None):
     system_prompt = (
         "你是一个图书馆咨询助手，以下是图书信息：\n"
         f"{books_info}\n"
-        "请根据用户提问，结合图书简介和聊天历史，给出专业、简明的推荐或解答。"
+        "请根据用户提问，结合图书简介和聊天历史，给出专业、简明的推荐或解答。只能推荐图书信息中的书目。"
     )
     messages = [SystemMessage(content=system_prompt)]
     for msg in chat_history:

@@ -1,0 +1,390 @@
+00:14:33,292 graphrag.cli.index INFO Logging enabled at D:\Ba_dou_College\deep_learning_2025\week15_RAG_Agent\week15_RAG_Agent\homework\ragtest\logs\indexing-engine.log
+00:14:34,364 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:15:34,7 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+00:15:34,55 graphrag.cli.index INFO Starting pipeline run. dry_run=False
+00:15:34,55 graphrag.cli.index INFO Using default configuration: {
+    "root_dir": "D:\\Ba_dou_College\\deep_learning_2025\\week15_RAG_Agent\\week15_RAG_Agent\\homework\\ragtest",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "glm-4-flash-250414",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": false,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 1,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "embedding-2",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": false,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 10,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 1,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "D:\\Ba_dou_College\\deep_learning_2025\\week15_RAG_Agent\\week15_RAG_Agent\\homework\\ragtest\\output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "D:\\Ba_dou_College\\deep_learning_2025\\week15_RAG_Agent\\week15_RAG_Agent\\homework\\ragtest\\update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "D:\\Ba_dou_College\\deep_learning_2025\\week15_RAG_Agent\\week15_RAG_Agent\\homework\\ragtest\\logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "D:\\Ba_dou_College\\deep_learning_2025\\week15_RAG_Agent\\week15_RAG_Agent\\homework\\ragtest\\output\\lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph.txt",
+        "entity_types": [
+            "organization",
+            "person",
+            "geo",
+            "event"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_claims.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph.txt",
+        "text_prompt": "prompts/community_report_text.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt.txt",
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+00:15:34,64 graphrag.storage.file_pipeline_storage INFO Creating file storage at D:\Ba_dou_College\deep_learning_2025\week15_RAG_Agent\week15_RAG_Agent\homework\ragtest\output
+00:15:34,64 graphrag.index.input.factory INFO loading input from root_dir=input
+00:15:34,64 graphrag.index.input.factory INFO using file storage for input
+00:15:34,64 graphrag.storage.file_pipeline_storage INFO search D:\Ba_dou_College\deep_learning_2025\week15_RAG_Agent\week15_RAG_Agent\homework\ragtest\input for files matching .*\.txt$
+00:15:34,74 graphrag.index.input.util INFO Found 1 InputFileType.text files, loading 1
+00:15:34,74 graphrag.index.input.util INFO Total number of unfiltered InputFileType.text rows: 1
+00:15:34,79 graphrag.index.run.run_pipeline INFO Final # of rows loaded: 1
+00:15:34,99 graphrag.utils.storage INFO reading table from storage: documents.parquet
+00:15:34,166 graphrag.utils.storage INFO reading table from storage: documents.parquet
+00:15:34,171 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+00:15:34,220 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+00:16:03,988 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:16:43,263 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:18:05,510 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:19:14,697 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:20:14,249 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:20:55,312 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:22:08,554 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:23:28,1 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:23:58,42 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:24:47,872 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:25:55,184 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:26:46,876 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:27:48,54 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:28:39,120 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:28:45,586 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:29:46,196 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:31:49,724 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:33:50,525 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:35:51,811 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:37:43,639 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:39:50,917 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:40:45,497 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:42:46,436 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:44:42,484 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:45:50,957 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:47:50,348 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:49:46,809 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:50:39,646 graphrag.utils.storage INFO reading table from storage: entities.parquet
+00:50:39,666 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+00:50:39,753 graphrag.utils.storage INFO reading table from storage: entities.parquet
+00:50:39,775 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+00:50:39,916 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+00:50:39,937 graphrag.utils.storage INFO reading table from storage: entities.parquet
+00:50:39,945 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+00:50:40,21 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+00:50:40,21 graphrag.utils.storage INFO reading table from storage: entities.parquet
+00:50:40,39 graphrag.utils.storage INFO reading table from storage: communities.parquet
+00:50:40,88 graphrag.index.operations.summarize_communities.graph_context.context_builder INFO Number of nodes at level=1 => 10
+00:50:40,115 graphrag.index.operations.summarize_communities.graph_context.context_builder INFO Number of nodes at level=0 => 57
+00:50:57,292 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:51:52,112 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:54:00,551 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:54:57,96 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:56:01,719 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:57:04,346 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+00:58:03,48 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+01:00:03,878 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+01:00:04,15 graphrag.utils.storage INFO reading table from storage: documents.parquet
+01:00:04,40 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+01:00:04,40 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+01:00:04,51 graphrag.utils.storage INFO reading table from storage: entities.parquet
+01:00:04,88 graphrag.utils.storage INFO reading table from storage: community_reports.parquet
+01:00:04,114 graphrag.index.workflows.generate_text_embeddings INFO Creating embeddings
+01:00:04,114 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding entity.description: default-entity-description
+01:00:04,315 graphrag.index.operations.embed_text.strategies.openai INFO embedding 76 inputs via 76 snippets using 5 batches. max_batch_size=16, batch_max_tokens=8191
+01:00:04,584 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+01:01:04,650 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+01:02:04,738 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+01:03:04,656 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+01:04:04,603 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+01:04:04,900 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding community.full_content: default-community-full_content
+01:04:04,900 graphrag.index.operations.embed_text.strategies.openai INFO embedding 8 inputs via 8 snippets using 1 batches. max_batch_size=16, batch_max_tokens=8191
+01:05:04,811 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+01:05:05,32 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding text_unit.text: default-text_unit-text
+01:05:05,49 graphrag.index.operations.embed_text.strategies.openai INFO embedding 7 inputs via 7 snippets using 1 batches. max_batch_size=16, batch_max_tokens=8191
+01:06:04,666 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+01:06:04,932 graphrag.cli.index INFO All workflows completed successfully.

@@ -1,0 +1,131 @@
+-目标-
+给定一篇可能与此活动相关的文本文档和一个实体类型列表，从文本中识别出所有符合这些类型的实体，以及已识别实体之间的所有关系。
+
+-步骤-
+识别所有实体。对于每个已识别的实体，提取以下信息：
+
+entity_name: 实体名称，大写
+
+entity_type: 以下类型之一: [{entity_types}]
+
+entity_description: 关于实体属性和活动的综合描述
+将每个实体格式化为：("entity"{tuple_delimiter}<entity_name>{tuple_delimiter}<entity_type>{tuple_delimiter}<entity_description>)
+
+从步骤1中识别的实体中，找出所有明确相关的（源实体，目标实体）对。
+对于每对相关实体，提取以下信息：
+
+source_entity: 源实体的名称，与步骤1中识别的一致
+
+target_entity: 目标实体的名称，与步骤1中识别的一致
+
+relationship_description: 解释你认为源实体和目标实体相关的理由
+
+relationship_strength: 一个表示源实体和目标实体之间关系强度的数值分数
+将每个关系格式化为：("relationship"{tuple_delimiter}<source_entity>{tuple_delimiter}<target_entity>{tuple_delimiter}<relationship_description>{tuple_delimiter}<relationship_strength>)
+
+将步骤1和2中识别出的所有实体和关系，以单一列表的形式返回英文结果。使用 {record_delimiter} 作为列表分隔符。
+
+完成后，输出 {completion_delimiter}
+
+######################
+
+-示例-
+######################
+示例 1:
+实体类型: ORGANIZATION,PERSON
+文本:
+The Verdantis's Central Institution is scheduled to meet on Monday and Thursday, with the institution planning to release its latest policy decision on Thursday at 1:30 p.m. PDT, followed by a press conference where Central Institution Chair Martin Smith will take questions. Investors expect the Market Strategy Committee to hold its benchmark interest rate steady in a range of 3.5%-3.75%.
+(Verdantis的中央机构计划在周一和周四举行会议，该机构计划在周四下午1:30（PDT）发布其最新的政策决定，随后将举行新闻发布会，届时中央机构主席Martin Smith将回答提问。投资者预计市场策略委员会将把其基准利率稳定在3.5%-3.75%的范围内。)
+######################
+输出:
+("entity"{tuple_delimiter}CENTRAL INSTITUTION{tuple_delimiter}ORGANIZATION{tuple_delimiter}The Central Institution is the Federal Reserve of Verdantis, which is setting interest rates on Monday and Thursday)
+{record_delimiter}
+("entity"{tuple_delimiter}MARTIN SMITH{tuple_delimiter}PERSON{tuple_delimiter}Martin Smith is the chair of the Central Institution)
+{record_delimiter}
+("entity"{tuple_delimiter}MARKET STRATEGY COMMITTEE{tuple_delimiter}ORGANIZATION{tuple_delimiter}The Central Institution committee makes key decisions about interest rates and the growth of Verdantis's money supply)
+{record_delimiter}
+("relationship"{tuple_delimiter}MARTIN SMITH{tuple_delimiter}CENTRAL INSTITUTION{tuple_delimiter}Martin Smith is the Chair of the Central Institution and will answer questions at a press conference{tuple_delimiter}9)
+{completion_delimiter}
+
+######################
+示例 2:
+实体类型: ORGANIZATION
+文本:
+TechGlobal's (TG) stock skyrocketed in its opening day on the Global Exchange Thursday. But IPO experts warn that the semiconductor corporation's debut on the public markets isn't indicative of how other newly listed companies may perform.
+
+TechGlobal, a formerly public company, was taken private by Vision Holdings in 2014. The well-established chip designer says it powers 85% of premium smartphones.
+(TechGlobal（TG）的股票周四在全球交易所上市首日暴涨。但IPO专家警告称，这家半导体公司的上市首秀并不代表其他新上市公司可能会有同样表现。TechGlobal是一家前上市公司，于2014年被Vision Holdings私有化。这家成熟的芯片设计公司称其为85%的高端智能手机提供支持。)
+######################
+输出:
+("entity"{tuple_delimiter}TECHGLOBAL{tuple_delimiter}ORGANIZATION{tuple_delimiter}TechGlobal is a stock now listed on the Global Exchange which powers 85% of premium smartphones)
+{record_delimiter}
+("entity"{tuple_delimiter}VISION HOLDINGS{tuple_delimiter}ORGANIZATION{tuple_delimiter}Vision Holdings is a firm that previously owned TechGlobal)
+{record_delimiter}
+("relationship"{tuple_delimiter}TECHGLOBAL{tuple_delimiter}VISION HOLDINGS{tuple_delimiter}Vision Holdings formerly owned TechGlobal from 2014 until present{tuple_delimiter}5)
+{completion_delimiter}
+
+######################
+示例 3:
+实体类型: ORGANIZATION,GEO,PERSON
+文本:
+Five Aurelians jailed for 8 years in Firuzabad and widely regarded as hostages are on their way home to Aurelia.
+
+The swap orchestrated by Quintara was finalized when $8bn of Firuzi funds were transferred to financial institutions in Krohaara, the capital of Quintara.
+
+The exchange initiated in Firuzabad's capital, Tiruzia, led to the four men and one woman, who are also Firuzi nationals, boarding a chartered flight to Krohaara.
+
+They were welcomed by senior Aurelian officials and are now on their way to Aurelia's capital, Cashion.
+
+The Aurelians include 39-year-old businessman Samuel Namara, who has been held in Tiruzia's Alhamia Prison, as well as journalist Durke Bataglani, 59, and environmentalist Meggie Tazbah, 53, who also holds Bratinas nationality.
+(五名在Firuzabad被监禁8年并被广泛视为人质的Aurelia公民正在返回Aurelia的途中。由Quintara策划的交换协议在80亿美元的Firuzi资金被转移到Quintara首都Krohaara的金融机构后最终敲定。在Firuzabad首都Tiruzia启动的交换行动，使得这四男一女（他们也是Firuzi国民）登上了一架飞往Krohaara的包机。他们受到了Aurelia高级官员的欢迎，现在正在前往Aurelia首都Cashion的路上。这些Aurelia公民包括39岁的商人Samuel Namara，他一直被关押在Tiruzia的Alhamia监狱，以及59岁的记者Durke Bataglani和53岁的环保主义者Meggie Tazbah，后者还拥有Bratinas国籍。)
+######################
+输出:
+("entity"{tuple_delimiter}FIRUZABAD{tuple_delimiter}GEO{tuple_delimiter}Firuzabad held Aurelians as hostages)
+{record_delimiter}
+("entity"{tuple_delimiter}AURELIA{tuple_delimiter}GEO{tuple_delimiter}Country seeking to release hostages)
+{record_delimiter}
+("entity"{tuple_delimiter}QUINTARA{tuple_delimiter}GEO{tuple_delimiter}Country that negotiated a swap of money in exchange for hostages)
+{record_delimiter}
+("entity"{tuple_delimiter}TIRUZIA{tuple_delimiter}GEO{tuple_delimiter}Capital of Firuzabad where the Aurelians were being held)
+{record_delimiter}
+("entity"{tuple_delimiter}KROHAARA{tuple_delimiter}GEO{tuple_delimiter}Capital city in Quintara)
+{record_delimiter}
+("entity"{tuple_delimiter}CASHION{tuple_delimiter}GEO{tuple_delimiter}Capital city in Aurelia)
+{record_delimiter}
+("entity"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}PERSON{tuple_delimiter}Aurelian who spent time in Tiruzia's Alhamia Prison)
+{record_delimiter}
+("entity"{tuple_delimiter}ALHAMIA PRISON{tuple_delimiter}GEO{tuple_delimiter}Prison in Tiruzia)
+{record_delimiter}
+("entity"{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}PERSON{tuple_delimiter}Aurelian journalist who was held hostage)
+{record_delimiter}
+("entity"{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}PERSON{tuple_delimiter}Bratinas national and environmentalist who was held hostage)
+{record_delimiter}
+("relationship"{tuple_delimiter}FIRUZABAD{tuple_delimiter}AURELIA{tuple_delimiter}Firuzabad negotiated a hostage exchange with Aurelia{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}QUINTARA{tuple_delimiter}AURELIA{tuple_delimiter}Quintara brokered the hostage exchange between Firuzabad and Aurelia{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}QUINTARA{tuple_delimiter}FIRUZABAD{tuple_delimiter}Quintara brokered the hostage exchange between Firuzabad and Aurelia{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}ALHAMIA PRISON{tuple_delimiter}Samuel Namara was a prisoner at Alhamia prison{tuple_delimiter}8)
+{record_delimiter}
+("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}Samuel Namara and Meggie Tazbah were exchanged in the same hostage release{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}Samuel Namara and Durke Bataglani were exchanged in the same hostage release{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}Meggie Tazbah and Durke Bataglani were exchanged in the same hostage release{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}SAMUEL NAMARA{tuple_delimiter}FIRUZABAD{tuple_delimiter}Samuel Namara was a hostage in Firuzabad{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}MEGGIE TAZBAH{tuple_delimiter}FIRUZABAD{tuple_delimiter}Meggie Tazbah was a hostage in Firuzabad{tuple_delimiter}2)
+{record_delimiter}
+("relationship"{tuple_delimiter}DURKE BATAGLANI{tuple_delimiter}FIRUZABAD{tuple_delimiter}Durke Bataglani was a hostage in Firuzabad{tuple_delimiter}2)
+{completion_delimiter}
+
+######################
+
+-真实数据-
+######################
+实体类型: {entity_types}
+文本: {input_text}
+######################
+输出:

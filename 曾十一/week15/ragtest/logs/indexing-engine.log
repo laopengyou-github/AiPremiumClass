@@ -1,0 +1,1206 @@
+21:49:30,704 graphrag.cli.index INFO Logging enabled at /mnt/data_1/zfy/self/homework/15/homework15/ragtest/logs/indexing-engine.log
+21:50:23,365 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:51:22,628 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+21:51:22,656 graphrag.cli.index INFO Starting pipeline run. dry_run=False
+21:51:22,658 graphrag.cli.index INFO Using default configuration: {
+    "root_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "glm-4-flash",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4/",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 5,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 10,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "embedding-2",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4/",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 5,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 10,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/output/lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph_zh.txt",
+        "entity_types": [
+            "\u7ec4\u7ec7",
+            "\u4eba\u7269",
+            "\u5730\u70b9",
+            "\u4e8b\u4ef6"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions_zh.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_claims_zh.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph_zh.txt",
+        "text_prompt": "prompts/community_report_text_zh.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt_zh.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt_zh.txt",
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt_zh.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+21:51:22,659 graphrag.storage.file_pipeline_storage INFO Creating file storage at /mnt/data_1/zfy/self/homework/15/homework15/ragtest/output
+21:51:22,660 graphrag.index.input.factory INFO loading input from root_dir=input
+21:51:22,660 graphrag.index.input.factory INFO using file storage for input
+21:51:22,663 graphrag.storage.file_pipeline_storage INFO search /mnt/data_1/zfy/self/homework/15/homework15/ragtest/input for files matching .*\.txt$
+21:51:22,693 graphrag.index.input.util INFO Found 1 InputFileType.text files, loading 1
+21:51:22,694 graphrag.index.input.util INFO Total number of unfiltered text rows: 1
+21:51:22,700 graphrag.index.run.run_pipeline INFO Final # of rows loaded: 1
+21:51:22,901 graphrag.utils.storage INFO reading table from storage: documents.parquet
+21:51:23,238 graphrag.utils.storage INFO reading table from storage: documents.parquet
+21:51:23,243 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+21:51:23,636 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+21:51:47,743 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:52:33,35 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:53:44,624 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:55:08,692 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:55:39,454 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:56:48,99 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:56:51,82 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+21:56:51,303 graphrag.utils.storage INFO reading table from storage: entities.parquet
+21:56:51,308 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+21:56:51,425 graphrag.utils.storage INFO reading table from storage: entities.parquet
+21:56:51,431 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+21:56:51,545 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+21:56:51,549 graphrag.utils.storage INFO reading table from storage: entities.parquet
+21:56:51,552 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+21:56:51,687 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+21:56:51,713 graphrag.utils.storage INFO reading table from storage: entities.parquet
+21:56:51,717 graphrag.utils.storage INFO reading table from storage: communities.parquet
+21:56:51,828 graphrag.index.operations.summarize_communities.graph_context.context_builder INFO Number of nodes at level=1 => 11
+21:56:51,971 graphrag.index.operations.summarize_communities.graph_context.context_builder INFO Number of nodes at level=0 => 38
+21:56:52,116 graphrag.index.operations.summarize_communities.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/summarize_communities/community_reports_extractor.py", line 76, in __call__
+    prompt = self._extraction_prompt.format(**{
+KeyError: '\n     "title"'
+21:56:52,122 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+21:56:52,122 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 4.0
+21:56:52,133 graphrag.index.operations.summarize_communities.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/summarize_communities/community_reports_extractor.py", line 76, in __call__
+    prompt = self._extraction_prompt.format(**{
+KeyError: '\n     "title"'
+21:56:52,133 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+21:56:52,133 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 5.0
+21:56:52,135 graphrag.index.operations.summarize_communities.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/summarize_communities/community_reports_extractor.py", line 76, in __call__
+    prompt = self._extraction_prompt.format(**{
+KeyError: '\n     "title"'
+21:56:52,135 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+21:56:52,135 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 0.0
+21:56:52,135 graphrag.index.operations.summarize_communities.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/summarize_communities/community_reports_extractor.py", line 76, in __call__
+    prompt = self._extraction_prompt.format(**{
+KeyError: '\n     "title"'
+21:56:52,135 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+21:56:52,135 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 1.0
+21:56:52,135 graphrag.index.operations.summarize_communities.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/summarize_communities/community_reports_extractor.py", line 76, in __call__
+    prompt = self._extraction_prompt.format(**{
+KeyError: '\n     "title"'
+21:56:52,136 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+21:56:52,136 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 2.0
+21:56:52,136 graphrag.index.operations.summarize_communities.community_reports_extractor ERROR error generating community report
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/summarize_communities/community_reports_extractor.py", line 76, in __call__
+    prompt = self._extraction_prompt.format(**{
+KeyError: '\n     "title"'
+21:56:52,136 graphrag.callbacks.file_workflow_callbacks INFO Community Report Extraction Error details=None
+21:56:52,136 graphrag.index.operations.summarize_communities.strategies WARNING No report found for community: 3.0
+21:56:52,137 graphrag.index.run.run_pipeline ERROR error running workflow create_community_reports
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/run/run_pipeline.py", line 129, in _run_pipeline
+    result = await workflow_function(config, context)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/workflows/create_community_reports.py", line 59, in run_workflow
+    output = await create_community_reports(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/workflows/create_community_reports.py", line 124, in create_community_reports
+    return finalize_community_reports(community_reports, communities)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/finalize_community_reports.py", line 19, in finalize_community_reports
+    community_reports = reports.merge(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/frame.py", line 10832, in merge
+    return merge(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/reshape/merge.py", line 170, in merge
+    op = _MergeOperation(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/reshape/merge.py", line 794, in __init__
+    ) = self._get_merge_keys()
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/reshape/merge.py", line 1310, in _get_merge_keys
+    left_keys.append(left._get_label_or_level_values(lk))
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/generic.py", line 1911, in _get_label_or_level_values
+    raise KeyError(key)
+KeyError: 'community'
+21:56:52,313 graphrag.callbacks.file_workflow_callbacks INFO Error running pipeline! details=None
+21:56:52,392 graphrag.cli.index ERROR Errors occurred during the pipeline run, see logs for more details.
+10:56:32,401 graphrag.cli.index INFO Logging enabled at /mnt/data_1/zfy/self/homework/15/homework15/ragtest/logs/indexing-engine.log
+10:56:36,192 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+10:57:33,717 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+10:57:33,778 graphrag.cli.index INFO Starting pipeline run. dry_run=False
+10:57:33,780 graphrag.cli.index INFO Using default configuration: {
+    "root_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "glm-4-flash",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4/",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 5,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 10,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "embedding-2",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4/",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 5,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 10,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/output/lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph_zh.txt",
+        "entity_types": [
+            "\u7ec4\u7ec7",
+            "\u4eba\u7269",
+            "\u5730\u70b9",
+            "\u4e8b\u4ef6"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions_zh.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_claims_zh.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph.txt",
+        "text_prompt": "prompts/community_report_text.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt_zh.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt_zh.txt",
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt_zh.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+10:57:33,781 graphrag.storage.file_pipeline_storage INFO Creating file storage at /mnt/data_1/zfy/self/homework/15/homework15/ragtest/output
+10:57:33,781 graphrag.index.input.factory INFO loading input from root_dir=input
+10:57:33,781 graphrag.index.input.factory INFO using file storage for input
+10:57:33,785 graphrag.storage.file_pipeline_storage INFO search /mnt/data_1/zfy/self/homework/15/homework15/ragtest/input for files matching .*\.txt$
+10:57:33,790 graphrag.index.input.util INFO Found 1 InputFileType.text files, loading 1
+10:57:33,791 graphrag.index.input.util INFO Total number of unfiltered text rows: 1
+10:57:33,797 graphrag.index.run.run_pipeline INFO Final # of rows loaded: 1
+10:57:34,49 graphrag.utils.storage INFO reading table from storage: documents.parquet
+10:57:34,150 graphrag.utils.storage INFO reading table from storage: documents.parquet
+10:57:34,155 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+10:57:34,555 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+10:57:34,819 graphrag.callbacks.file_workflow_callbacks INFO Error Invoking LLM details={'prompt': '-目标-\n给定一篇可能与此活动相关的文本文档和一个实体类型列表，从文本中识别出所有符合这些类型的实体，以及已识别实体之间的所有关系。\n\n-步骤-\n识别所有实体。对于每个已识别的实体，提取以下信息：\n\nentity_name: 实体名称，大写\n\nentity_type: 以下类型之一: [组织,人物,地点,事件]\n\nentity_description: 关于实体属性和活动的综合描述\n将每个实体格式化为：("entity"<|><entity_name><|><entity_type><|><entity_description>)\n\n从步骤1中识别的实体中，找出所有明确相关的（源实体，目标实体）对。\n对于每对相关实体，提取以下信息：\n\nsource_entity: 源实体的名称，与步骤1中识别的一致\n\ntarget_entity: 目标实体的名称，与步骤1中识别的一致\n\nrelationship_description: 解释你认为源实体和目标实体相关的理由\n\nrelationship_strength: 一个表示源实体和目标实体之间关系强度的数值分数\n将每个关系格式化为：("relationship"<|><source_entity><|><target_entity><|><relationship_description><|><relationship_strength>)\n\n将步骤1和2中识别出的所有实体和关系，以单一列表的形式返回英文结果。使用 ## 作为列表分隔符。\n\n完成后，输出 <|COMPLETE|>\n\n######################\n\n-示例-\n######################\n示例 1:\n实体类型: ORGANIZATION,PERSON\n文本:\nThe Verdantis\'s Central Institution is scheduled to meet on Monday and Thursday, with the institution planning to release its latest policy decision on Thursday at 1:30 p.m. PDT, followed by a press conference where Central Institution Chair Martin Smith will take questions. Investors expect the Market Strategy Committee to hold its benchmark interest rate steady in a range of 3.5%-3.75%.\n(Verdantis的中央机构计划在周一和周四举行会议，该机构计划在周四下午1:30（PDT）发布其最新的政策决定，随后将举行新闻发布会，届时中央机构主席Martin Smith将回答提问。投资者预计市场策略委员会将把其基准利率稳定在3.5%-3.75%的范围内。)\n######################\n输出:\n("entity"<|>CENTRAL INSTITUTION<|>ORGANIZATION<|>The Central Institution is the Federal Reserve of Verdantis, which is setting interest rates on Monday and Thursday)\n##\n("entity"<|>MARTIN SMITH<|>PERSON<|>Martin Smith is the chair of the Central Institution)\n##\n("entity"<|>MARKET STRATEGY COMMITTEE<|>ORGANIZATION<|>The Central Institution committee makes key decisions about interest rates and the growth of Verdantis\'s money supply)\n##\n("relationship"<|>MARTIN SMITH<|>CENTRAL INSTITUTION<|>Martin Smith is the Chair of the Central Institution and will answer questions at a press conference<|>9)\n<|COMPLETE|>\n\n######################\n示例 2:\n实体类型: ORGANIZATION\n文本:\nTechGlobal\'s (TG) stock skyrocketed in its opening day on the Global Exchange Thursday. But IPO experts warn that the semiconductor corporation\'s debut on the public markets isn\'t indicative of how other newly listed companies may perform.\n\nTechGlobal, a formerly public company, was taken private by Vision Holdings in 2014. The well-established chip designer says it powers 85% of premium smartphones.\n(TechGlobal（TG）的股票周四在全球交易所上市首日暴涨。但IPO专家警告称，这家半导体公司的上市首秀并不代表其他新上市公司可能会有同样表现。TechGlobal是一家前上市公司，于2014年被Vision Holdings私有化。这家成熟的芯片设计公司称其为85%的高端智能手机提供支持。)\n######################\n输出:\n("entity"<|>TECHGLOBAL<|>ORGANIZATION<|>TechGlobal is a stock now listed on the Global Exchange which powers 85% of premium smartphones)\n##\n("entity"<|>VISION HOLDINGS<|>ORGANIZATION<|>Vision Holdings is a firm that previously owned TechGlobal)\n##\n("relationship"<|>TECHGLOBAL<|>VISION HOLDINGS<|>Vision Holdings formerly owned TechGlobal from 2014 until present<|>5)\n<|COMPLETE|>\n\n######################\n示例 3:\n实体类型: ORGANIZATION,GEO,PERSON\n文本:\nFive Aurelians jailed for 8 years in Firuzabad and widely regarded as hostages are on their way home to Aurelia.\n\nThe swap orchestrated by Quintara was finalized when $8bn of Firuzi funds were transferred to financial institutions in Krohaara, the capital of Quintara.\n\nThe exchange initiated in Firuzabad\'s capital, Tiruzia, led to the four men and one woman, who are also Firuzi nationals, boarding a chartered flight to Krohaara.\n\nThey were welcomed by senior Aurelian officials and are now on their way to Aurelia\'s capital, Cashion.\n\nThe Aurelians include 39-year-old businessman Samuel Namara, who has been held in Tiruzia\'s Alhamia Prison, as well as journalist Durke Bataglani, 59, and environmentalist Meggie Tazbah, 53, who also holds Bratinas nationality.\n(五名在Firuzabad被监禁8年并被广泛视为人质的Aurelia公民正在返回Aurelia的途中。由Quintara策划的交换协议在80亿美元的Firuzi资金被转移到Quintara首都Krohaara的金融机构后最终敲定。在Firuzabad首都Tiruzia启动的交换行动，使得这四男一女（他们也是Firuzi国民）登上了一架飞往Krohaara的包机。他们受到了Aurelia高级官员的欢迎，现在正在前往Aurelia首都Cashion的路上。这些Aurelia公民包括39岁的商人Samuel Namara，他一直被关押在Tiruzia的Alhamia监狱，以及59岁的记者Durke Bataglani和53岁的环保主义者Meggie Tazbah，后者还拥有Bratinas国籍。)\n######################\n输出:\n("entity"<|>FIRUZABAD<|>GEO<|>Firuzabad held Aurelians as hostages)\n##\n("entity"<|>AURELIA<|>GEO<|>Country seeking to release hostages)\n##\n("entity"<|>QUINTARA<|>GEO<|>Country that negotiated a swap of money in exchange for hostages)\n##\n("entity"<|>TIRUZIA<|>GEO<|>Capital of Firuzabad where the Aurelians were being held)\n##\n("entity"<|>KROHAARA<|>GEO<|>Capital city in Quintara)\n##\n("entity"<|>CASHION<|>GEO<|>Capital city in Aurelia)\n##\n("entity"<|>SAMUEL NAMARA<|>PERSON<|>Aurelian who spent time in Tiruzia\'s Alhamia Prison)\n##\n("entity"<|>ALHAMIA PRISON<|>GEO<|>Prison in Tiruzia)\n##\n("entity"<|>DURKE BATAGLANI<|>PERSON<|>Aurelian journalist who was held hostage)\n##\n("entity"<|>MEGGIE TAZBAH<|>PERSON<|>Bratinas national and environmentalist who was held hostage)\n##\n("relationship"<|>FIRUZABAD<|>AURELIA<|>Firuzabad negotiated a hostage exchange with Aurelia<|>2)\n##\n("relationship"<|>QUINTARA<|>AURELIA<|>Quintara brokered the hostage exchange between Firuzabad and Aurelia<|>2)\n##\n("relationship"<|>QUINTARA<|>FIRUZABAD<|>Quintara brokered the hostage exchange between Firuzabad and Aurelia<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>ALHAMIA PRISON<|>Samuel Namara was a prisoner at Alhamia prison<|>8)\n##\n("relationship"<|>SAMUEL NAMARA<|>MEGGIE TAZBAH<|>Samuel Namara and Meggie Tazbah were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>DURKE BATAGLANI<|>Samuel Namara and Durke Bataglani were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>MEGGIE TAZBAH<|>DURKE BATAGLANI<|>Meggie Tazbah and Durke Bataglani were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>FIRUZABAD<|>Samuel Namara was a hostage in Firuzabad<|>2)\n##\n("relationship"<|>MEGGIE TAZBAH<|>FIRUZABAD<|>Meggie Tazbah was a hostage in Firuzabad<|>2)\n##\n("relationship"<|>DURKE BATAGLANI<|>FIRUZABAD<|>Durke Bataglani was a hostage in Firuzabad<|>2)\n<|COMPLETE|>\n\n######################\n\n-真实数据-\n######################\n实体类型: 组织,人物,地点,事件\n文本: 鲁镇的酒店的格局，是和别处不同的：都是当街一个曲尺形的大柜台，柜里面预备着热水，可以随时温酒。做工的人，傍午傍晚散了工，每每花四文铜钱，买一碗酒，——这是二十多年前的事，现在每碗要涨到十文，——靠柜外站着，热热的喝了休息；倘肯多花一文，便可以买一碟盐煮笋，或者茴香豆，做下酒物了，如果出到十几文，那就能买一样荤菜，但这些顾客，多是短衣帮，大抵没有这样阔绰。只有穿长衫的，才踱进店面隔壁的房子里，要酒要菜，慢慢地坐喝。\n我从十二岁起，便在镇口的咸亨酒店里当伙计，掌柜说，样子太傻，怕侍候不了长衫主顾，就在外面做点事罢。外面的短衣主顾，虽然容易说话，但唠唠叨叨缠夹不清的也很不少。他们往往要亲眼看着黄酒从坛子里舀出，看过壶子底里有水没有，又亲看将壶子放在热水里，然后放心：在这严重监督下，羼⑶水也很为难。所以过了几天，掌柜又说我干不了这事。幸亏荐头的情面大，辞退不得，便改为专管温酒的一种无聊职务了。\n我从此便整天的站在柜台里，专管我的职务。虽然没有什么失职，但总觉得有些单调，有些无聊。掌柜是一副凶脸孔，主顾也没有好声气，教人活泼不得；只有孔乙己到店，才可以笑几声，所以至今还记得。\n孔乙己是站着喝酒而穿长衫的唯一的人。他身材很高大；青白脸色，皱纹间时常夹些伤痕；一部乱蓬蓬的花白的胡子。穿的虽然是长衫，可是又脏又破，似乎十多年没有补，也没有洗。他对人说话，总是满口之乎者也，教人半懂不懂的。因为他姓孔，别人便从描红纸上的“上大人孔乙己”这半懂不懂的话里，替他取下一个绰号，叫作孔乙己。孔乙己一到店，所有喝酒的人便都看着他笑，有的叫道，“孔乙己，你脸上又添上新伤疤了！”他不回答，对柜里说，“温两碗酒，要一碟茴香豆。”便排出九文大钱。他们又故意的高声嚷道，“你一定又偷了人家的东西了！”孔乙己睁大眼睛说，“你怎么这样凭空污人清白……”“什么清白？我前天亲眼见你偷了何家的书，吊着打。”孔乙己便涨红了脸，额上的青筋条条绽出，争辩道，“窃书不能算偷……窃书！……读书人的事，能算偷么？”接连便是难懂的话，什么“君子固穷”，什么“者乎”之类，引得众人都哄笑起来：店内外充满了快活的空气。\n听人家�\n######################\n输出:', 'kwargs': {}}
+10:57:34,820 graphrag.index.operations.extract_graph.graph_extractor ERROR error extracting graph
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/services/cached.py", line 131, in invoke
+    output = self._cache_adapter.wrap_output(prompt, kwargs, cached)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/services/openai_text_chat_cache_adapter.py", line 77, in wrap_output
+    entry = OpenAIChatCompletionModel.model_validate(cached_result)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pydantic/main.py", line 703, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ChatCompletion
+object
+  Input should be 'chat.completion' [type=literal_error, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+10:57:34,955 graphrag.callbacks.file_workflow_callbacks INFO Entity Extraction Error details={'doc_index': 0, 'text': '鲁镇的酒店的格局，是和别处不同的：都是当街一个曲尺形的大柜台，柜里面预备着热水，可以随时温酒。做工的人，傍午傍晚散了工，每每花四文铜钱，买一碗酒，——这是二十多年前的事，现在每碗要涨到十文，——靠柜外站着，热热的喝了休息；倘肯多花一文，便可以买一碟盐煮笋，或者茴香豆，做下酒物了，如果出到十几文，那就能买一样荤菜，但这些顾客，多是短衣帮，大抵没有这样阔绰。只有穿长衫的，才踱进店面隔壁的房子里，要酒要菜，慢慢地坐喝。\n我从十二岁起，便在镇口的咸亨酒店里当伙计，掌柜说，样子太傻，怕侍候不了长衫主顾，就在外面做点事罢。外面的短衣主顾，虽然容易说话，但唠唠叨叨缠夹不清的也很不少。他们往往要亲眼看着黄酒从坛子里舀出，看过壶子底里有水没有，又亲看将壶子放在热水里，然后放心：在这严重监督下，羼⑶水也很为难。所以过了几天，掌柜又说我干不了这事。幸亏荐头的情面大，辞退不得，便改为专管温酒的一种无聊职务了。\n我从此便整天的站在柜台里，专管我的职务。虽然没有什么失职，但总觉得有些单调，有些无聊。掌柜是一副凶脸孔，主顾也没有好声气，教人活泼不得；只有孔乙己到店，才可以笑几声，所以至今还记得。\n孔乙己是站着喝酒而穿长衫的唯一的人。他身材很高大；青白脸色，皱纹间时常夹些伤痕；一部乱蓬蓬的花白的胡子。穿的虽然是长衫，可是又脏又破，似乎十多年没有补，也没有洗。他对人说话，总是满口之乎者也，教人半懂不懂的。因为他姓孔，别人便从描红纸上的“上大人孔乙己”这半懂不懂的话里，替他取下一个绰号，叫作孔乙己。孔乙己一到店，所有喝酒的人便都看着他笑，有的叫道，“孔乙己，你脸上又添上新伤疤了！”他不回答，对柜里说，“温两碗酒，要一碟茴香豆。”便排出九文大钱。他们又故意的高声嚷道，“你一定又偷了人家的东西了！”孔乙己睁大眼睛说，“你怎么这样凭空污人清白……”“什么清白？我前天亲眼见你偷了何家的书，吊着打。”孔乙己便涨红了脸，额上的青筋条条绽出，争辩道，“窃书不能算偷……窃书！……读书人的事，能算偷么？”接连便是难懂的话，什么“君子固穷”，什么“者乎”之类，引得众人都哄笑起来：店内外充满了快活的空气。\n听人家�'}
+10:57:34,976 graphrag.callbacks.file_workflow_callbacks INFO Error Invoking LLM details={'prompt': '-目标-\n给定一篇可能与此活动相关的文本文档和一个实体类型列表，从文本中识别出所有符合这些类型的实体，以及已识别实体之间的所有关系。\n\n-步骤-\n识别所有实体。对于每个已识别的实体，提取以下信息：\n\nentity_name: 实体名称，大写\n\nentity_type: 以下类型之一: [组织,人物,地点,事件]\n\nentity_description: 关于实体属性和活动的综合描述\n将每个实体格式化为：("entity"<|><entity_name><|><entity_type><|><entity_description>)\n\n从步骤1中识别的实体中，找出所有明确相关的（源实体，目标实体）对。\n对于每对相关实体，提取以下信息：\n\nsource_entity: 源实体的名称，与步骤1中识别的一致\n\ntarget_entity: 目标实体的名称，与步骤1中识别的一致\n\nrelationship_description: 解释你认为源实体和目标实体相关的理由\n\nrelationship_strength: 一个表示源实体和目标实体之间关系强度的数值分数\n将每个关系格式化为：("relationship"<|><source_entity><|><target_entity><|><relationship_description><|><relationship_strength>)\n\n将步骤1和2中识别出的所有实体和关系，以单一列表的形式返回英文结果。使用 ## 作为列表分隔符。\n\n完成后，输出 <|COMPLETE|>\n\n######################\n\n-示例-\n######################\n示例 1:\n实体类型: ORGANIZATION,PERSON\n文本:\nThe Verdantis\'s Central Institution is scheduled to meet on Monday and Thursday, with the institution planning to release its latest policy decision on Thursday at 1:30 p.m. PDT, followed by a press conference where Central Institution Chair Martin Smith will take questions. Investors expect the Market Strategy Committee to hold its benchmark interest rate steady in a range of 3.5%-3.75%.\n(Verdantis的中央机构计划在周一和周四举行会议，该机构计划在周四下午1:30（PDT）发布其最新的政策决定，随后将举行新闻发布会，届时中央机构主席Martin Smith将回答提问。投资者预计市场策略委员会将把其基准利率稳定在3.5%-3.75%的范围内。)\n######################\n输出:\n("entity"<|>CENTRAL INSTITUTION<|>ORGANIZATION<|>The Central Institution is the Federal Reserve of Verdantis, which is setting interest rates on Monday and Thursday)\n##\n("entity"<|>MARTIN SMITH<|>PERSON<|>Martin Smith is the chair of the Central Institution)\n##\n("entity"<|>MARKET STRATEGY COMMITTEE<|>ORGANIZATION<|>The Central Institution committee makes key decisions about interest rates and the growth of Verdantis\'s money supply)\n##\n("relationship"<|>MARTIN SMITH<|>CENTRAL INSTITUTION<|>Martin Smith is the Chair of the Central Institution and will answer questions at a press conference<|>9)\n<|COMPLETE|>\n\n######################\n示例 2:\n实体类型: ORGANIZATION\n文本:\nTechGlobal\'s (TG) stock skyrocketed in its opening day on the Global Exchange Thursday. But IPO experts warn that the semiconductor corporation\'s debut on the public markets isn\'t indicative of how other newly listed companies may perform.\n\nTechGlobal, a formerly public company, was taken private by Vision Holdings in 2014. The well-established chip designer says it powers 85% of premium smartphones.\n(TechGlobal（TG）的股票周四在全球交易所上市首日暴涨。但IPO专家警告称，这家半导体公司的上市首秀并不代表其他新上市公司可能会有同样表现。TechGlobal是一家前上市公司，于2014年被Vision Holdings私有化。这家成熟的芯片设计公司称其为85%的高端智能手机提供支持。)\n######################\n输出:\n("entity"<|>TECHGLOBAL<|>ORGANIZATION<|>TechGlobal is a stock now listed on the Global Exchange which powers 85% of premium smartphones)\n##\n("entity"<|>VISION HOLDINGS<|>ORGANIZATION<|>Vision Holdings is a firm that previously owned TechGlobal)\n##\n("relationship"<|>TECHGLOBAL<|>VISION HOLDINGS<|>Vision Holdings formerly owned TechGlobal from 2014 until present<|>5)\n<|COMPLETE|>\n\n######################\n示例 3:\n实体类型: ORGANIZATION,GEO,PERSON\n文本:\nFive Aurelians jailed for 8 years in Firuzabad and widely regarded as hostages are on their way home to Aurelia.\n\nThe swap orchestrated by Quintara was finalized when $8bn of Firuzi funds were transferred to financial institutions in Krohaara, the capital of Quintara.\n\nThe exchange initiated in Firuzabad\'s capital, Tiruzia, led to the four men and one woman, who are also Firuzi nationals, boarding a chartered flight to Krohaara.\n\nThey were welcomed by senior Aurelian officials and are now on their way to Aurelia\'s capital, Cashion.\n\nThe Aurelians include 39-year-old businessman Samuel Namara, who has been held in Tiruzia\'s Alhamia Prison, as well as journalist Durke Bataglani, 59, and environmentalist Meggie Tazbah, 53, who also holds Bratinas nationality.\n(五名在Firuzabad被监禁8年并被广泛视为人质的Aurelia公民正在返回Aurelia的途中。由Quintara策划的交换协议在80亿美元的Firuzi资金被转移到Quintara首都Krohaara的金融机构后最终敲定。在Firuzabad首都Tiruzia启动的交换行动，使得这四男一女（他们也是Firuzi国民）登上了一架飞往Krohaara的包机。他们受到了Aurelia高级官员的欢迎，现在正在前往Aurelia首都Cashion的路上。这些Aurelia公民包括39岁的商人Samuel Namara，他一直被关押在Tiruzia的Alhamia监狱，以及59岁的记者Durke Bataglani和53岁的环保主义者Meggie Tazbah，后者还拥有Bratinas国籍。)\n######################\n输出:\n("entity"<|>FIRUZABAD<|>GEO<|>Firuzabad held Aurelians as hostages)\n##\n("entity"<|>AURELIA<|>GEO<|>Country seeking to release hostages)\n##\n("entity"<|>QUINTARA<|>GEO<|>Country that negotiated a swap of money in exchange for hostages)\n##\n("entity"<|>TIRUZIA<|>GEO<|>Capital of Firuzabad where the Aurelians were being held)\n##\n("entity"<|>KROHAARA<|>GEO<|>Capital city in Quintara)\n##\n("entity"<|>CASHION<|>GEO<|>Capital city in Aurelia)\n##\n("entity"<|>SAMUEL NAMARA<|>PERSON<|>Aurelian who spent time in Tiruzia\'s Alhamia Prison)\n##\n("entity"<|>ALHAMIA PRISON<|>GEO<|>Prison in Tiruzia)\n##\n("entity"<|>DURKE BATAGLANI<|>PERSON<|>Aurelian journalist who was held hostage)\n##\n("entity"<|>MEGGIE TAZBAH<|>PERSON<|>Bratinas national and environmentalist who was held hostage)\n##\n("relationship"<|>FIRUZABAD<|>AURELIA<|>Firuzabad negotiated a hostage exchange with Aurelia<|>2)\n##\n("relationship"<|>QUINTARA<|>AURELIA<|>Quintara brokered the hostage exchange between Firuzabad and Aurelia<|>2)\n##\n("relationship"<|>QUINTARA<|>FIRUZABAD<|>Quintara brokered the hostage exchange between Firuzabad and Aurelia<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>ALHAMIA PRISON<|>Samuel Namara was a prisoner at Alhamia prison<|>8)\n##\n("relationship"<|>SAMUEL NAMARA<|>MEGGIE TAZBAH<|>Samuel Namara and Meggie Tazbah were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>DURKE BATAGLANI<|>Samuel Namara and Durke Bataglani were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>MEGGIE TAZBAH<|>DURKE BATAGLANI<|>Meggie Tazbah and Durke Bataglani were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>FIRUZABAD<|>Samuel Namara was a hostage in Firuzabad<|>2)\n##\n("relationship"<|>MEGGIE TAZBAH<|>FIRUZABAD<|>Meggie Tazbah was a hostage in Firuzabad<|>2)\n##\n("relationship"<|>DURKE BATAGLANI<|>FIRUZABAD<|>Durke Bataglani was a hostage in Firuzabad<|>2)\n<|COMPLETE|>\n\n######################\n\n-真实数据-\n######################\n实体类型: 组织,人物,地点,事件\n文本: ��闹，围住了孔乙己。他便给他们茴香豆吃，一人一颗。孩子吃完豆，仍然不散，眼睛都望着碟子。孔乙己着了慌，伸开五指将碟子罩住，弯腰下去说道，“不多了，我已经不多了。”直起身又看一看豆，自己摇头说，“不多不多！多乎哉？不多也⒀。”于是这一群孩子都在笑声里走散了。\n孔乙己是这样的使人快活，可是没有他，别人也便这么过。\n有一天，大约是中秋前的两三天，掌柜正在慢慢的结账，取下粉板，忽然说，“孔乙己长久没有来了。还欠十九个钱呢！”我才也觉得他的确长久没有来了。一个喝酒的人说道，“他怎么会来？……他打折了腿了。”掌柜说，“哦！”“他总仍旧是偷。这一回，是自己发昏，竟偷到丁举人家里去了。他家的东西，偷得的么？”“后来怎么样？”“怎么样？先写服辩，后来是打，打了大半夜，再打折了腿。”“后来呢？”“后来打折了腿了。”“打折了怎样呢？”“怎样？……谁晓得？许是死了。”掌柜也不再问，仍然慢慢的算他的账。\n中秋之后，秋风是一天凉比一天，看看将近初冬；我整天的靠着火，也须穿上棉袄了。一天的下半天，没有一个顾客，我正合了眼坐着。忽然间听得一个声音，“温一碗酒。”这声音虽然极低，却很耳熟。看时又全没有人。站起来向外一望，那孔乙己便在柜台下对了门槛坐着。他脸上黑而且瘦，已经不成样子；穿一件破夹袄，盘着两腿，下面垫一个蒲包，用草绳在肩上挂住；见了我，又说道，“温一碗酒。”掌柜也伸出头去，一面说，“孔乙己么？你还欠十九个钱呢！”孔乙己很颓唐的仰面答道，“这……下回还清罢。这一回是现钱，酒要好。”掌柜仍然同平常一样，笑着对他说，“孔乙己，你又偷了东西了！”但他这回却不十分分辩，单说了一句“不要取笑！”“取笑？要是不偷，怎么会打断腿？”孔乙己低声说道，“跌断，跌，跌……”他的眼色，很像恳求掌柜，不要再提。此时已经聚集了几个人，便和掌柜都笑了。我温了酒，端出去，放在门槛上。他从破衣袋里摸出四文大钱，放在我手里，见他满手是泥，原来他便用这手走来的。不一会，他喝完酒，便又在旁人的说笑声中，坐着用这手慢慢走去了。\n自此以后，又长久没有看见孔乙己。到了年关，掌柜取下粉板说，“孔乙己还欠十九个钱呢！”到第二年的端午，又说“孔乙己还欠十九个钱呢！”到中秋可是没有说，再到年关也没有看见他。\n我到现在终于没有见——大约孔乙己的确死了。\n######################\n输出:', 'kwargs': {}}
+10:57:34,976 graphrag.index.operations.extract_graph.graph_extractor ERROR error extracting graph
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/services/cached.py", line 131, in invoke
+    output = self._cache_adapter.wrap_output(prompt, kwargs, cached)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/services/openai_text_chat_cache_adapter.py", line 77, in wrap_output
+    entry = OpenAIChatCompletionModel.model_validate(cached_result)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pydantic/main.py", line 703, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ChatCompletion
+object
+  Input should be 'chat.completion' [type=literal_error, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+10:57:34,977 graphrag.callbacks.file_workflow_callbacks INFO Entity Extraction Error details={'doc_index': 0, 'text': '��闹，围住了孔乙己。他便给他们茴香豆吃，一人一颗。孩子吃完豆，仍然不散，眼睛都望着碟子。孔乙己着了慌，伸开五指将碟子罩住，弯腰下去说道，“不多了，我已经不多了。”直起身又看一看豆，自己摇头说，“不多不多！多乎哉？不多也⒀。”于是这一群孩子都在笑声里走散了。\n孔乙己是这样的使人快活，可是没有他，别人也便这么过。\n有一天，大约是中秋前的两三天，掌柜正在慢慢的结账，取下粉板，忽然说，“孔乙己长久没有来了。还欠十九个钱呢！”我才也觉得他的确长久没有来了。一个喝酒的人说道，“他怎么会来？……他打折了腿了。”掌柜说，“哦！”“他总仍旧是偷。这一回，是自己发昏，竟偷到丁举人家里去了。他家的东西，偷得的么？”“后来怎么样？”“怎么样？先写服辩，后来是打，打了大半夜，再打折了腿。”“后来呢？”“后来打折了腿了。”“打折了怎样呢？”“怎样？……谁晓得？许是死了。”掌柜也不再问，仍然慢慢的算他的账。\n中秋之后，秋风是一天凉比一天，看看将近初冬；我整天的靠着火，也须穿上棉袄了。一天的下半天，没有一个顾客，我正合了眼坐着。忽然间听得一个声音，“温一碗酒。”这声音虽然极低，却很耳熟。看时又全没有人。站起来向外一望，那孔乙己便在柜台下对了门槛坐着。他脸上黑而且瘦，已经不成样子；穿一件破夹袄，盘着两腿，下面垫一个蒲包，用草绳在肩上挂住；见了我，又说道，“温一碗酒。”掌柜也伸出头去，一面说，“孔乙己么？你还欠十九个钱呢！”孔乙己很颓唐的仰面答道，“这……下回还清罢。这一回是现钱，酒要好。”掌柜仍然同平常一样，笑着对他说，“孔乙己，你又偷了东西了！”但他这回却不十分分辩，单说了一句“不要取笑！”“取笑？要是不偷，怎么会打断腿？”孔乙己低声说道，“跌断，跌，跌……”他的眼色，很像恳求掌柜，不要再提。此时已经聚集了几个人，便和掌柜都笑了。我温了酒，端出去，放在门槛上。他从破衣袋里摸出四文大钱，放在我手里，见他满手是泥，原来他便用这手走来的。不一会，他喝完酒，便又在旁人的说笑声中，坐着用这手慢慢走去了。\n自此以后，又长久没有看见孔乙己。到了年关，掌柜取下粉板说，“孔乙己还欠十九个钱呢！”到第二年的端午，又说“孔乙己还欠十九个钱呢！”到中秋可是没有说，再到年关也没有看见他。\n我到现在终于没有见——大约孔乙己的确死了。'}
+10:57:34,981 graphrag.callbacks.file_workflow_callbacks INFO Error Invoking LLM details={'prompt': '-目标-\n给定一篇可能与此活动相关的文本文档和一个实体类型列表，从文本中识别出所有符合这些类型的实体，以及已识别实体之间的所有关系。\n\n-步骤-\n识别所有实体。对于每个已识别的实体，提取以下信息：\n\nentity_name: 实体名称，大写\n\nentity_type: 以下类型之一: [组织,人物,地点,事件]\n\nentity_description: 关于实体属性和活动的综合描述\n将每个实体格式化为：("entity"<|><entity_name><|><entity_type><|><entity_description>)\n\n从步骤1中识别的实体中，找出所有明确相关的（源实体，目标实体）对。\n对于每对相关实体，提取以下信息：\n\nsource_entity: 源实体的名称，与步骤1中识别的一致\n\ntarget_entity: 目标实体的名称，与步骤1中识别的一致\n\nrelationship_description: 解释你认为源实体和目标实体相关的理由\n\nrelationship_strength: 一个表示源实体和目标实体之间关系强度的数值分数\n将每个关系格式化为：("relationship"<|><source_entity><|><target_entity><|><relationship_description><|><relationship_strength>)\n\n将步骤1和2中识别出的所有实体和关系，以单一列表的形式返回英文结果。使用 ## 作为列表分隔符。\n\n完成后，输出 <|COMPLETE|>\n\n######################\n\n-示例-\n######################\n示例 1:\n实体类型: ORGANIZATION,PERSON\n文本:\nThe Verdantis\'s Central Institution is scheduled to meet on Monday and Thursday, with the institution planning to release its latest policy decision on Thursday at 1:30 p.m. PDT, followed by a press conference where Central Institution Chair Martin Smith will take questions. Investors expect the Market Strategy Committee to hold its benchmark interest rate steady in a range of 3.5%-3.75%.\n(Verdantis的中央机构计划在周一和周四举行会议，该机构计划在周四下午1:30（PDT）发布其最新的政策决定，随后将举行新闻发布会，届时中央机构主席Martin Smith将回答提问。投资者预计市场策略委员会将把其基准利率稳定在3.5%-3.75%的范围内。)\n######################\n输出:\n("entity"<|>CENTRAL INSTITUTION<|>ORGANIZATION<|>The Central Institution is the Federal Reserve of Verdantis, which is setting interest rates on Monday and Thursday)\n##\n("entity"<|>MARTIN SMITH<|>PERSON<|>Martin Smith is the chair of the Central Institution)\n##\n("entity"<|>MARKET STRATEGY COMMITTEE<|>ORGANIZATION<|>The Central Institution committee makes key decisions about interest rates and the growth of Verdantis\'s money supply)\n##\n("relationship"<|>MARTIN SMITH<|>CENTRAL INSTITUTION<|>Martin Smith is the Chair of the Central Institution and will answer questions at a press conference<|>9)\n<|COMPLETE|>\n\n######################\n示例 2:\n实体类型: ORGANIZATION\n文本:\nTechGlobal\'s (TG) stock skyrocketed in its opening day on the Global Exchange Thursday. But IPO experts warn that the semiconductor corporation\'s debut on the public markets isn\'t indicative of how other newly listed companies may perform.\n\nTechGlobal, a formerly public company, was taken private by Vision Holdings in 2014. The well-established chip designer says it powers 85% of premium smartphones.\n(TechGlobal（TG）的股票周四在全球交易所上市首日暴涨。但IPO专家警告称，这家半导体公司的上市首秀并不代表其他新上市公司可能会有同样表现。TechGlobal是一家前上市公司，于2014年被Vision Holdings私有化。这家成熟的芯片设计公司称其为85%的高端智能手机提供支持。)\n######################\n输出:\n("entity"<|>TECHGLOBAL<|>ORGANIZATION<|>TechGlobal is a stock now listed on the Global Exchange which powers 85% of premium smartphones)\n##\n("entity"<|>VISION HOLDINGS<|>ORGANIZATION<|>Vision Holdings is a firm that previously owned TechGlobal)\n##\n("relationship"<|>TECHGLOBAL<|>VISION HOLDINGS<|>Vision Holdings formerly owned TechGlobal from 2014 until present<|>5)\n<|COMPLETE|>\n\n######################\n示例 3:\n实体类型: ORGANIZATION,GEO,PERSON\n文本:\nFive Aurelians jailed for 8 years in Firuzabad and widely regarded as hostages are on their way home to Aurelia.\n\nThe swap orchestrated by Quintara was finalized when $8bn of Firuzi funds were transferred to financial institutions in Krohaara, the capital of Quintara.\n\nThe exchange initiated in Firuzabad\'s capital, Tiruzia, led to the four men and one woman, who are also Firuzi nationals, boarding a chartered flight to Krohaara.\n\nThey were welcomed by senior Aurelian officials and are now on their way to Aurelia\'s capital, Cashion.\n\nThe Aurelians include 39-year-old businessman Samuel Namara, who has been held in Tiruzia\'s Alhamia Prison, as well as journalist Durke Bataglani, 59, and environmentalist Meggie Tazbah, 53, who also holds Bratinas nationality.\n(五名在Firuzabad被监禁8年并被广泛视为人质的Aurelia公民正在返回Aurelia的途中。由Quintara策划的交换协议在80亿美元的Firuzi资金被转移到Quintara首都Krohaara的金融机构后最终敲定。在Firuzabad首都Tiruzia启动的交换行动，使得这四男一女（他们也是Firuzi国民）登上了一架飞往Krohaara的包机。他们受到了Aurelia高级官员的欢迎，现在正在前往Aurelia首都Cashion的路上。这些Aurelia公民包括39岁的商人Samuel Namara，他一直被关押在Tiruzia的Alhamia监狱，以及59岁的记者Durke Bataglani和53岁的环保主义者Meggie Tazbah，后者还拥有Bratinas国籍。)\n######################\n输出:\n("entity"<|>FIRUZABAD<|>GEO<|>Firuzabad held Aurelians as hostages)\n##\n("entity"<|>AURELIA<|>GEO<|>Country seeking to release hostages)\n##\n("entity"<|>QUINTARA<|>GEO<|>Country that negotiated a swap of money in exchange for hostages)\n##\n("entity"<|>TIRUZIA<|>GEO<|>Capital of Firuzabad where the Aurelians were being held)\n##\n("entity"<|>KROHAARA<|>GEO<|>Capital city in Quintara)\n##\n("entity"<|>CASHION<|>GEO<|>Capital city in Aurelia)\n##\n("entity"<|>SAMUEL NAMARA<|>PERSON<|>Aurelian who spent time in Tiruzia\'s Alhamia Prison)\n##\n("entity"<|>ALHAMIA PRISON<|>GEO<|>Prison in Tiruzia)\n##\n("entity"<|>DURKE BATAGLANI<|>PERSON<|>Aurelian journalist who was held hostage)\n##\n("entity"<|>MEGGIE TAZBAH<|>PERSON<|>Bratinas national and environmentalist who was held hostage)\n##\n("relationship"<|>FIRUZABAD<|>AURELIA<|>Firuzabad negotiated a hostage exchange with Aurelia<|>2)\n##\n("relationship"<|>QUINTARA<|>AURELIA<|>Quintara brokered the hostage exchange between Firuzabad and Aurelia<|>2)\n##\n("relationship"<|>QUINTARA<|>FIRUZABAD<|>Quintara brokered the hostage exchange between Firuzabad and Aurelia<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>ALHAMIA PRISON<|>Samuel Namara was a prisoner at Alhamia prison<|>8)\n##\n("relationship"<|>SAMUEL NAMARA<|>MEGGIE TAZBAH<|>Samuel Namara and Meggie Tazbah were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>DURKE BATAGLANI<|>Samuel Namara and Durke Bataglani were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>MEGGIE TAZBAH<|>DURKE BATAGLANI<|>Meggie Tazbah and Durke Bataglani were exchanged in the same hostage release<|>2)\n##\n("relationship"<|>SAMUEL NAMARA<|>FIRUZABAD<|>Samuel Namara was a hostage in Firuzabad<|>2)\n##\n("relationship"<|>MEGGIE TAZBAH<|>FIRUZABAD<|>Meggie Tazbah was a hostage in Firuzabad<|>2)\n##\n("relationship"<|>DURKE BATAGLANI<|>FIRUZABAD<|>Durke Bataglani was a hostage in Firuzabad<|>2)\n<|COMPLETE|>\n\n######################\n\n-真实数据-\n######################\n实体类型: 组织,人物,地点,事件\n文本: ，争辩道，“窃书不能算偷……窃书！……读书人的事，能算偷么？”接连便是难懂的话，什么“君子固穷”，什么“者乎”之类，引得众人都哄笑起来：店内外充满了快活的空气。\n听人家背地里谈论，孔乙己原来也读过书，但终于没有进学，又不会营生；于是愈过愈穷，弄到将要讨饭了。幸而写得一笔好字，便替人家钞钞书，换一碗饭吃。可惜他又有一样坏脾气，便是好喝懒做。坐不到几天，便连人和书籍纸张笔砚，一齐失踪。如是几次，叫他抄书的人也没有了。孔乙己没有法，便免不了偶然做些偷窃的事。但他在我们店里，品行却比别人都好，就是从不拖欠；虽然间或没有现钱，暂时记在粉板上，但不出一月，定然还清，从粉板上拭去了孔乙己的名字。\n孔乙己喝过半碗酒，涨红的脸色渐渐复了原，旁人便又问道，“孔乙己，你当真认识字么？”孔乙己看着问他的人，显出不屑置辩的神气。他们便接着说道，“你怎的连半个秀才也捞不到呢？”孔乙己立刻显出颓唐不安模样，脸上笼上了一层灰色，嘴里说些话；这回可是全是之乎者也之类，一些不懂了。在这时候，众人也都哄笑起来：店内外充满了快活的空气。\n在这些时候，我可以附和着笑，掌柜是决不责备的。而且掌柜见了孔乙己，也每每这样问他，引人发笑。孔乙己自己知道不能和他们谈天，便只好向孩子说话。有一回对我说道，“你读过书么？”我略略点一点头。他说，“读过书，……我便考你一考。茴香豆的茴字，怎样写的？”我想，讨饭一样的人，也配考我么？便回过脸去，不再理会。孔乙己等了许久，很恳切的说道，“不能写罢？……我教给你，记着！这些字应该记着。将来做掌柜的时候，写账要用。”我暗想我和掌柜的等级还很远呢，而且我们掌柜也从不将茴香豆上账；又好笑，又不耐烦，懒懒的答他道，“谁要你教，不是草头底下一个来回的回字么？”孔乙己显出极高兴的样子，将两个指头的长指甲敲着柜台，点头说，“对呀对呀！……回字有四样写法⑿，你知道么？”我愈不耐烦了，努着嘴走远。孔乙己刚用指甲蘸了酒，想在柜上写字，见我毫不热心，便又叹一口气，显出极惋惜的样子。\n有几回，邻居孩子听得笑声，也赶热闹，围住了孔乙己。他便给他们茴香豆吃，一人一颗。孩子吃完豆，仍然不散，眼睛都望着碟子。孔乙己着了慌，伸开五指将碟子罩住，弯腰下去\n######################\n输出:', 'kwargs': {}}
+10:57:34,981 graphrag.index.operations.extract_graph.graph_extractor ERROR error extracting graph
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 118, in __call__
+    result = await self._process_document(text, prompt_variables)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/graph_extractor.py", line 146, in _process_document
+    response = await self._model.achat(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/language_model/providers/fnllm/models.py", line 82, in achat
+    response = await self.model(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/llm/openai_chat_llm.py", line 94, in __call__
+    return await self._text_chat_llm(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/services/openai_tools_parsing.py", line 130, in __call__
+    return await self._delegate(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/base_llm.py", line 144, in __call__
+    return await self._decorated_target(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/services/json.py", line 78, in invoke
+    return await delegate(prompt, **kwargs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/base/services/cached.py", line 131, in invoke
+    output = self._cache_adapter.wrap_output(prompt, kwargs, cached)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/fnllm/openai/services/openai_text_chat_cache_adapter.py", line 77, in wrap_output
+    entry = OpenAIChatCompletionModel.model_validate(cached_result)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pydantic/main.py", line 703, in model_validate
+    return cls.__pydantic_validator__.validate_python(
+pydantic_core._pydantic_core.ValidationError: 1 validation error for ChatCompletion
+object
+  Input should be 'chat.completion' [type=literal_error, input_value=None, input_type=NoneType]
+    For further information visit https://errors.pydantic.dev/2.11/v/literal_error
+10:57:34,982 graphrag.callbacks.file_workflow_callbacks INFO Entity Extraction Error details={'doc_index': 0, 'text': '，争辩道，“窃书不能算偷……窃书！……读书人的事，能算偷么？”接连便是难懂的话，什么“君子固穷”，什么“者乎”之类，引得众人都哄笑起来：店内外充满了快活的空气。\n听人家背地里谈论，孔乙己原来也读过书，但终于没有进学，又不会营生；于是愈过愈穷，弄到将要讨饭了。幸而写得一笔好字，便替人家钞钞书，换一碗饭吃。可惜他又有一样坏脾气，便是好喝懒做。坐不到几天，便连人和书籍纸张笔砚，一齐失踪。如是几次，叫他抄书的人也没有了。孔乙己没有法，便免不了偶然做些偷窃的事。但他在我们店里，品行却比别人都好，就是从不拖欠；虽然间或没有现钱，暂时记在粉板上，但不出一月，定然还清，从粉板上拭去了孔乙己的名字。\n孔乙己喝过半碗酒，涨红的脸色渐渐复了原，旁人便又问道，“孔乙己，你当真认识字么？”孔乙己看着问他的人，显出不屑置辩的神气。他们便接着说道，“你怎的连半个秀才也捞不到呢？”孔乙己立刻显出颓唐不安模样，脸上笼上了一层灰色，嘴里说些话；这回可是全是之乎者也之类，一些不懂了。在这时候，众人也都哄笑起来：店内外充满了快活的空气。\n在这些时候，我可以附和着笑，掌柜是决不责备的。而且掌柜见了孔乙己，也每每这样问他，引人发笑。孔乙己自己知道不能和他们谈天，便只好向孩子说话。有一回对我说道，“你读过书么？”我略略点一点头。他说，“读过书，……我便考你一考。茴香豆的茴字，怎样写的？”我想，讨饭一样的人，也配考我么？便回过脸去，不再理会。孔乙己等了许久，很恳切的说道，“不能写罢？……我教给你，记着！这些字应该记着。将来做掌柜的时候，写账要用。”我暗想我和掌柜的等级还很远呢，而且我们掌柜也从不将茴香豆上账；又好笑，又不耐烦，懒懒的答他道，“谁要你教，不是草头底下一个来回的回字么？”孔乙己显出极高兴的样子，将两个指头的长指甲敲着柜台，点头说，“对呀对呀！……回字有四样写法⑿，你知道么？”我愈不耐烦了，努着嘴走远。孔乙己刚用指甲蘸了酒，想在柜上写字，见我毫不热心，便又叹一口气，显出极惋惜的样子。\n有几回，邻居孩子听得笑声，也赶热闹，围住了孔乙己。他便给他们茴香豆吃，一人一颗。孩子吃完豆，仍然不散，眼睛都望着碟子。孔乙己着了慌，伸开五指将碟子罩住，弯腰下去'}
+10:57:34,987 graphrag.index.run.run_pipeline ERROR error running workflow extract_graph
+Traceback (most recent call last):
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/run/run_pipeline.py", line 129, in _run_pipeline
+    result = await workflow_function(config, context)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/workflows/extract_graph.py", line 46, in run_workflow
+    entities, relationships, raw_entities, raw_relationships = await extract_graph(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/workflows/extract_graph.py", line 88, in extract_graph
+    extracted_entities, extracted_relationships = await extractor(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/extract_graph.py", line 79, in extract_graph
+    entities = _merge_entities(entity_dfs)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/graphrag/index/operations/extract_graph/extract_graph.py", line 103, in _merge_entities
+    all_entities.groupby(["title", "type"], sort=False)
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/frame.py", line 9183, in groupby
+    return DataFrameGroupBy(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/groupby/groupby.py", line 1329, in __init__
+    grouper, exclusions, obj = get_grouper(
+  File "/home/zfy/miniconda3/envs/py310/lib/python3.10/site-packages/pandas/core/groupby/grouper.py", line 1043, in get_grouper
+    raise KeyError(gpr)
+KeyError: 'title'
+10:57:35,115 graphrag.callbacks.file_workflow_callbacks INFO Error running pipeline! details=None
+10:57:35,153 graphrag.cli.index ERROR Errors occurred during the pipeline run, see logs for more details.
+10:58:39,948 graphrag.cli.index INFO Logging enabled at /mnt/data_1/zfy/self/homework/15/homework15/ragtest/logs/indexing-engine.log
+10:58:40,994 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+10:59:40,485 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+10:59:40,552 graphrag.cli.index INFO Starting pipeline run. dry_run=False
+10:59:40,554 graphrag.cli.index INFO Using default configuration: {
+    "root_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest",
+    "models": {
+        "default_chat_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_chat",
+            "model": "glm-4-flash",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4/",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 5,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 10,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        },
+        "default_embedding_model": {
+            "api_key": "==== REDACTED ====",
+            "auth_type": "api_key",
+            "type": "openai_embedding",
+            "model": "embedding-2",
+            "encoding_model": "cl100k_base",
+            "api_base": "https://open.bigmodel.cn/api/paas/v4/",
+            "api_version": null,
+            "deployment_name": null,
+            "proxy": null,
+            "audience": null,
+            "model_supports_json": true,
+            "request_timeout": 180.0,
+            "tokens_per_minute": "auto",
+            "requests_per_minute": "auto",
+            "retry_strategy": "native",
+            "max_retries": 5,
+            "max_retry_wait": 10.0,
+            "concurrent_requests": 10,
+            "async_mode": "threaded",
+            "responses": null,
+            "max_tokens": null,
+            "temperature": 0,
+            "max_completion_tokens": null,
+            "reasoning_effort": null,
+            "top_p": 1,
+            "n": 1,
+            "frequency_penalty": 0.0,
+            "presence_penalty": 0.0
+        }
+    },
+    "input": {
+        "type": "file",
+        "file_type": "text",
+        "base_dir": "input",
+        "storage_account_blob_url": null,
+        "encoding": "utf-8",
+        "file_pattern": ".*\\.txt$",
+        "file_filter": null,
+        "text_column": "text",
+        "title_column": null,
+        "metadata": null
+    },
+    "chunks": {
+        "size": 1200,
+        "overlap": 100,
+        "group_by_columns": [
+            "id"
+        ],
+        "strategy": "tokens",
+        "encoding_model": "cl100k_base",
+        "prepend_metadata": false,
+        "chunk_size_includes_metadata": false
+    },
+    "output": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "outputs": null,
+    "update_index_output": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/update_output",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "cache": {
+        "type": "file",
+        "base_dir": "cache",
+        "storage_account_blob_url": null,
+        "cosmosdb_account_url": null
+    },
+    "reporting": {
+        "type": "file",
+        "base_dir": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/logs",
+        "storage_account_blob_url": null
+    },
+    "vector_store": {
+        "default_vector_store": {
+            "type": "lancedb",
+            "db_uri": "/mnt/data_1/zfy/self/homework/15/homework15/ragtest/output/lancedb",
+            "url": null,
+            "audience": null,
+            "container_name": "==== REDACTED ====",
+            "database_name": null,
+            "overwrite": true
+        }
+    },
+    "workflows": null,
+    "embed_text": {
+        "model_id": "default_embedding_model",
+        "vector_store_id": "default_vector_store",
+        "batch_size": 16,
+        "batch_max_tokens": 8191,
+        "names": [
+            "entity.description",
+            "community.full_content",
+            "text_unit.text"
+        ],
+        "strategy": null
+    },
+    "extract_graph": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_graph.txt",
+        "entity_types": [
+            "\u7ec4\u7ec7",
+            "\u4eba\u7269",
+            "\u5730\u70b9",
+            "\u4e8b\u4ef6"
+        ],
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "summarize_descriptions": {
+        "model_id": "default_chat_model",
+        "prompt": "prompts/summarize_descriptions_zh.txt",
+        "max_length": 500,
+        "max_input_tokens": 4000,
+        "strategy": null
+    },
+    "extract_graph_nlp": {
+        "normalize_edge_weights": true,
+        "text_analyzer": {
+            "extractor_type": "regex_english",
+            "model_name": "en_core_web_md",
+            "max_word_length": 15,
+            "word_delimiter": " ",
+            "include_named_entities": true,
+            "exclude_nouns": [
+                "stuff",
+                "thing",
+                "things",
+                "bunch",
+                "bit",
+                "bits",
+                "people",
+                "person",
+                "okay",
+                "hey",
+                "hi",
+                "hello",
+                "laughter",
+                "oh"
+            ],
+            "exclude_entity_tags": [
+                "DATE"
+            ],
+            "exclude_pos_tags": [
+                "DET",
+                "PRON",
+                "INTJ",
+                "X"
+            ],
+            "noun_phrase_tags": [
+                "PROPN",
+                "NOUNS"
+            ],
+            "noun_phrase_grammars": {
+                "PROPN,PROPN": "PROPN",
+                "NOUN,NOUN": "NOUNS",
+                "NOUNS,NOUN": "NOUNS",
+                "ADJ,ADJ": "ADJ",
+                "ADJ,NOUN": "NOUNS"
+            }
+        },
+        "concurrent_requests": 25
+    },
+    "prune_graph": {
+        "min_node_freq": 2,
+        "max_node_freq_std": null,
+        "min_node_degree": 1,
+        "max_node_degree_std": null,
+        "min_edge_weight_pct": 40.0,
+        "remove_ego_nodes": true,
+        "lcc_only": false
+    },
+    "cluster_graph": {
+        "max_cluster_size": 10,
+        "use_lcc": true,
+        "seed": 3735928559
+    },
+    "extract_claims": {
+        "enabled": false,
+        "model_id": "default_chat_model",
+        "prompt": "prompts/extract_claims_zh.txt",
+        "description": "Any claims or facts that could be relevant to information discovery.",
+        "max_gleanings": 1,
+        "strategy": null
+    },
+    "community_reports": {
+        "model_id": "default_chat_model",
+        "graph_prompt": "prompts/community_report_graph.txt",
+        "text_prompt": "prompts/community_report_text.txt",
+        "max_length": 2000,
+        "max_input_length": 8000,
+        "strategy": null
+    },
+    "embed_graph": {
+        "enabled": false,
+        "dimensions": 1536,
+        "num_walks": 10,
+        "walk_length": 40,
+        "window_size": 2,
+        "iterations": 3,
+        "random_seed": 597832,
+        "use_lcc": true
+    },
+    "umap": {
+        "enabled": false
+    },
+    "snapshots": {
+        "embeddings": false,
+        "graphml": false,
+        "raw_graph": false
+    },
+    "local_search": {
+        "prompt": "prompts/local_search_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "text_unit_prop": 0.5,
+        "community_prop": 0.15,
+        "conversation_history_max_turns": 5,
+        "top_k_entities": 10,
+        "top_k_relationships": 10,
+        "max_context_tokens": 12000
+    },
+    "global_search": {
+        "map_prompt": "prompts/global_search_map_system_prompt_zh.txt",
+        "reduce_prompt": "prompts/global_search_reduce_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "knowledge_prompt": "prompts/global_search_knowledge_system_prompt_zh.txt",
+        "max_context_tokens": 12000,
+        "data_max_tokens": 12000,
+        "map_max_length": 1000,
+        "reduce_max_length": 2000,
+        "dynamic_search_threshold": 1,
+        "dynamic_search_keep_parent": false,
+        "dynamic_search_num_repeats": 1,
+        "dynamic_search_use_summary": false,
+        "dynamic_search_max_level": 2
+    },
+    "drift_search": {
+        "prompt": "prompts/drift_search_system_prompt_zh.txt",
+        "reduce_prompt": "prompts/drift_search_reduce_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "data_max_tokens": 12000,
+        "reduce_max_tokens": null,
+        "reduce_temperature": 0,
+        "reduce_max_completion_tokens": null,
+        "concurrency": 32,
+        "drift_k_followups": 20,
+        "primer_folds": 5,
+        "primer_llm_max_tokens": 12000,
+        "n_depth": 3,
+        "local_search_text_unit_prop": 0.9,
+        "local_search_community_prop": 0.1,
+        "local_search_top_k_mapped_entities": 10,
+        "local_search_top_k_relationships": 10,
+        "local_search_max_data_tokens": 12000,
+        "local_search_temperature": 0,
+        "local_search_top_p": 1,
+        "local_search_n": 1,
+        "local_search_llm_max_gen_tokens": null,
+        "local_search_llm_max_gen_completion_tokens": null
+    },
+    "basic_search": {
+        "prompt": "prompts/basic_search_system_prompt_zh.txt",
+        "chat_model_id": "default_chat_model",
+        "embedding_model_id": "default_embedding_model",
+        "k": 10,
+        "max_context_tokens": 12000
+    }
+}
+10:59:40,555 graphrag.storage.file_pipeline_storage INFO Creating file storage at /mnt/data_1/zfy/self/homework/15/homework15/ragtest/output
+10:59:40,555 graphrag.index.input.factory INFO loading input from root_dir=input
+10:59:40,556 graphrag.index.input.factory INFO using file storage for input
+10:59:40,559 graphrag.storage.file_pipeline_storage INFO search /mnt/data_1/zfy/self/homework/15/homework15/ragtest/input for files matching .*\.txt$
+10:59:40,564 graphrag.index.input.util INFO Found 1 InputFileType.text files, loading 1
+10:59:40,565 graphrag.index.input.util INFO Total number of unfiltered text rows: 1
+10:59:40,571 graphrag.index.run.run_pipeline INFO Final # of rows loaded: 1
+10:59:40,596 graphrag.utils.storage INFO reading table from storage: documents.parquet
+10:59:40,664 graphrag.utils.storage INFO reading table from storage: documents.parquet
+10:59:40,668 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+10:59:41,39 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+11:00:02,365 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:00:54,669 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:01:59,533 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:02:56,566 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:03:53,889 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:05:04,203 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:05:11,102 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:06:07,719 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:07:07,581 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:08:06,759 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:09:07,696 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:10:07,691 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:11:07,204 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:12:07,92 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:12:07,297 graphrag.utils.storage INFO reading table from storage: entities.parquet
+11:12:07,301 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+11:12:07,418 graphrag.utils.storage INFO reading table from storage: entities.parquet
+11:12:07,423 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+11:12:07,503 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+11:12:07,507 graphrag.utils.storage INFO reading table from storage: entities.parquet
+11:12:07,510 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+11:12:07,578 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+11:12:07,582 graphrag.utils.storage INFO reading table from storage: entities.parquet
+11:12:07,586 graphrag.utils.storage INFO reading table from storage: communities.parquet
+11:12:07,598 graphrag.index.operations.summarize_communities.graph_context.context_builder INFO Number of nodes at level=0 => 37
+11:12:27,333 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:13:37,579 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:14:35,642 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:15:30,695 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:16:25,969 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/chat/completions "HTTP/1.1 200 OK"
+11:19:08,224 graphrag.utils.storage INFO reading table from storage: documents.parquet
+11:19:08,228 graphrag.utils.storage INFO reading table from storage: relationships.parquet
+11:19:08,233 graphrag.utils.storage INFO reading table from storage: text_units.parquet
+11:19:08,238 graphrag.utils.storage INFO reading table from storage: entities.parquet
+11:19:08,243 graphrag.utils.storage INFO reading table from storage: community_reports.parquet
+11:19:08,256 graphrag.index.workflows.generate_text_embeddings INFO Creating embeddings
+11:19:08,256 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding entity.description: default-entity-description
+11:19:08,611 graphrag.index.operations.embed_text.strategies.openai INFO embedding 37 inputs via 37 snippets using 3 batches. max_batch_size=16, batch_max_tokens=8191
+11:19:09,10 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+11:20:09,12 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+11:21:08,947 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+11:21:10,26 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding community.full_content: default-community-full_content
+11:21:10,59 graphrag.index.operations.embed_text.strategies.openai INFO embedding 5 inputs via 5 snippets using 1 batches. max_batch_size=16, batch_max_tokens=8191
+11:22:09,114 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+11:22:09,300 graphrag.index.operations.embed_text.embed_text INFO using vector store lancedb with container_name default for embedding text_unit.text: default-text_unit-text
+11:22:09,308 graphrag.index.operations.embed_text.strategies.openai INFO embedding 3 inputs via 3 snippets using 1 batches. max_batch_size=16, batch_max_tokens=8191
+11:23:09,188 httpx INFO HTTP Request: POST https://open.bigmodel.cn/api/paas/v4/embeddings "HTTP/1.1 200 OK"
+11:23:09,488 graphrag.cli.index INFO All workflows completed successfully.
