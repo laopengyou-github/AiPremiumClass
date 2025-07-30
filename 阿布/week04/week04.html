@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <title>week04-&#x8bad;&#x7ec3;&#x76f8;&#x5173;&#x53c2;&#x6570;</title>
+            <style>
+/* From extension vscode.github */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+.vscode-dark img[src$=\#gh-light-mode-only],
+.vscode-light img[src$=\#gh-dark-mode-only],
+.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
+.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
+	display: none;
+}
+
+</style>
+            
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
+<style>
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
+                font-size: 14px;
+                line-height: 1.6;
+            }
+        </style>
+        <style>
+.task-list-item {
+    list-style-type: none;
+}
+
+.task-list-item-checkbox {
+    margin-left: -20px;
+    vertical-align: middle;
+    pointer-events: none;
+}
+</style>
+<style>
+:root {
+  --color-note: #0969da;
+  --color-tip: #1a7f37;
+  --color-warning: #9a6700;
+  --color-severe: #bc4c00;
+  --color-caution: #d1242f;
+  --color-important: #8250df;
+}
+
+</style>
+<style>
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-note: #2f81f7;
+    --color-tip: #3fb950;
+    --color-warning: #d29922;
+    --color-severe: #db6d28;
+    --color-caution: #f85149;
+    --color-important: #a371f7;
+  }
+}
+
+</style>
+<style>
+.markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 16px;
+  color: inherit;
+  border-left: .25em solid #888;
+}
+
+.markdown-alert>:first-child {
+  margin-top: 0
+}
+
+.markdown-alert>:last-child {
+  margin-bottom: 0
+}
+
+.markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1
+}
+
+.markdown-alert .markdown-alert-title .octicon {
+  margin-right: 0.5rem;
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-alert.markdown-alert-note {
+  border-left-color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: var(--color-note);
+}
+
+.markdown-alert.markdown-alert-important {
+  border-left-color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: var(--color-important);
+}
+
+.markdown-alert.markdown-alert-warning {
+  border-left-color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: var(--color-warning);
+}
+
+.markdown-alert.markdown-alert-tip {
+  border-left-color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: var(--color-tip);
+}
+
+.markdown-alert.markdown-alert-caution {
+  border-left-color: var(--color-caution);
+}
+
+.markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: var(--color-caution);
+}
+
+</style>
+        
+        </head>
+        <body class="vscode-body vscode-light">
+            <h2 id="week04-训练相关参数">week04-训练相关参数</h2>
+<ul>
+<li><a href="#week04-%E8%AE%AD%E7%BB%83%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0">week04-训练相关参数</a></li>
+<li><a href="#%E6%95%B0%E6%8D%AE%E9%9B%86%E4%BB%8B%E7%BB%8D">数据集介绍</a></li>
+<li><a href="#%E6%9C%AC%E5%91%A8%E4%BD%9C%E4%B8%9A">本周作业</a>
+<ul>
+<li><a href="#%E4%BD%9C%E4%B8%9A1%E6%90%AD%E5%BB%BA%E7%AE%80%E5%8D%95%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C">作业1：搭建简单神经网络</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%9A2%E4%BD%BF%E7%94%A8batch-normalization">作业2：使用Batch Normalization</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%9A2%E4%BD%BF%E7%94%A8dropout">作业2：使用dropout</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%9A2%E4%BD%BF%E7%94%A8bndropout">作业2：使用bn+dropout</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%9A3%E5%9F%BA%E4%BA%8Ebn%E5%B1%82%E4%BD%BF%E7%94%A8%E4%B8%8D%E5%90%8C%E4%BC%98%E5%8C%96%E5%99%A8">作业3：基于bn层使用不同优化器</a></li>
+<li><a href="#%E4%BD%9C%E4%B8%9A4%E6%B3%A8%E5%86%8Ckaggle%E8%B4%A6%E5%8F%B7%E8%8E%B7%E5%8F%96%E5%85%8D%E8%B4%B9%E8%B5%84%E6%BA%90">作业4：注册kaggle账号，获取免费资源</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="数据集介绍">数据集介绍</h2>
+<ul>
+<li>样本数量：400 张人脸图像</li>
+<li>类别数：40 个人，每个人 10 张照片</li>
+<li>图像大小：64 × 64 像素的灰度图</li>
+<li>数据格式：NumPy 数组格式，每张图片展平为 (1, 4096) 的向量</li>
+<li>数据集特点：
+<ul>
+<li>人脸角度、表情、光照条件略有变化</li>
+<li>无背景（仅包含人脸）</li>
+<li>适合 PCA 降维、人脸识别、深度学习训练</li>
+</ul>
+</li>
+<li>数据详情：</li>
+</ul>
+<pre><code class="language-python">olivetti_faces = fetch_olivetti_faces(data_home=<span class="hljs-string">&#x27;./face_data&#x27;</span>, shuffle=<span class="hljs-literal">True</span>)
+<span class="hljs-built_in">print</span>(olivetti_faces.data.shape)
+<span class="hljs-built_in">print</span>(olivetti_faces.target.shape)
+<span class="hljs-built_in">print</span>(olivetti_faces.images.shape) 
+
+<span class="hljs-comment"># 输出结果：</span>
+(<span class="hljs-number">400</span>, <span class="hljs-number">4096</span>) <span class="hljs-comment"># 样本数，展平后每个样本特征数</span>
+(<span class="hljs-number">400</span>,) <span class="hljs-comment"># 真实标签</span>
+(<span class="hljs-number">400</span>, <span class="hljs-number">64</span>, <span class="hljs-number">64</span>) <span class="hljs-comment"># 样本数，图片的形状（高、宽）</span>
+</code></pre>
+<h2 id="本周作业">本周作业</h2>
+<ul class="contains-task-list">
+<li class="task-list-item enabled"><input class="task-list-item-checkbox" checked=""type="checkbox"> 1. 搭建的神经网络，使用olivettiface数据集进行训练</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox" checked=""type="checkbox"> 2. 结合归一化和正则化来优化网络模型结构，观察对比loss结果</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox" checked=""type="checkbox"> 3. 尝试不同optimizer对模型进行训练，观察对比loss结果</li>
+<li class="task-list-item enabled"><input class="task-list-item-checkbox" checked=""type="checkbox"> 4. 注册kaggle并尝试激活Accelerator，使用GPU加速模型训练</li>
+</ul>
+<h3 id="作业1搭建简单神经网络">作业1：搭建简单神经网络</h3>
+<pre><code class="language-python"><span class="hljs-comment"># -*- encoding:utf-8 -*-</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;
+@Author: 阿布
+@Date: 2025/03/18 14:24
+@File: hw1_olivettiface.py
+&#x27;&#x27;&#x27;</span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> fetch_olivetti_faces
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> TensorDataset, DataLoader
+
+
+<span class="hljs-comment"># 定义模型</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Olivettiface</span>(nn.Module):
+    <span class="hljs-string">&quot;&quot;&quot;
+    无任何优化时，loss、acc结果很差
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self,input_size, hidden_size, output_size</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        self.linear_1 = nn.Linear(input_size, hidden_size)
+        self.linear_2 = nn.Linear(hidden_size, output_size)
+        self.activate = nn.ReLU()
+        self.loss_fn = nn.CrossEntropyLoss()
+        
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, y=<span class="hljs-literal">None</span></span>):
+        log_x = self.linear_1(x)
+        act_x = self.activate(log_x)
+        yp = self.linear_2(act_x)
+        <span class="hljs-keyword">if</span> y <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> self.loss_fn(yp, y)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> yp
+
+
+<span class="hljs-comment"># 获取数据, 划分数据集</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_data</span>():
+    data_path = os.path.dirname(__file__)
+    faces = fetch_olivetti_faces(data_home=data_path, shuffle=<span class="hljs-literal">True</span>)
+    X = faces.data
+    Y = faces.target
+    <span class="hljs-comment"># 小样本多类别的数据集中，加上stratify=y，以确保类别分布均衡</span>
+    <span class="hljs-comment"># （不加的话可能导致训练集中有某些类别的样本，而测试集中没有该类别样本，或上述相反情况）</span>
+    X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=<span class="hljs-number">0.2</span>, stratify=Y, random_state=<span class="hljs-number">35</span>) 
+    <span class="hljs-keyword">return</span> (
+        torch.FloatTensor(X_train),
+        torch.LongTensor(y_train),
+        torch.FloatTensor(X_test),
+        torch.LongTensor(y_test)
+    )
+
+
+<span class="hljs-comment"># 测试准确率</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test_accuracy</span>(<span class="hljs-params">model, test_data, device</span>):
+    model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 设置为评估模式</span>
+    model.to(device)
+    correct = <span class="hljs-number">0</span>
+    total = <span class="hljs-number">0</span>
+    
+    <span class="hljs-keyword">with</span> torch.no_grad():  <span class="hljs-comment"># 关闭梯度计算，加快推理速度</span>
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> test_data:
+            x, y = x.to(device), y.to(device)  <span class="hljs-comment"># 传输到设备</span>
+            outputs = model(x)  <span class="hljs-comment"># 前向传播</span>
+            _, predicted = torch.<span class="hljs-built_in">max</span>(outputs, <span class="hljs-number">1</span>)  <span class="hljs-comment"># 取最大概率的类别</span>
+            correct += (predicted == y).<span class="hljs-built_in">sum</span>().item()
+            total += y.size(<span class="hljs-number">0</span>)
+    
+    accuracy = correct / total
+    <span class="hljs-keyword">return</span> accuracy
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    <span class="hljs-comment"># 配置训练设备</span>
+    device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)
+    <span class="hljs-comment"># 配置参数</span>
+    epochs = <span class="hljs-number">20</span>
+    batch_size = <span class="hljs-number">80</span>
+    lr = <span class="hljs-number">0.1</span>
+    input_size = <span class="hljs-number">4096</span>
+    hidden_size = <span class="hljs-number">512</span>
+    output_size = <span class="hljs-number">40</span>
+    <span class="hljs-comment"># 创建模型</span>
+    model = Olivettiface(input_size, hidden_size, output_size)
+    <span class="hljs-comment"># 配置优化器</span>
+    optim = torch.optim.Adam(model.parameters(), lr=lr)
+    <span class="hljs-comment"># 获取数据</span>
+    X_train, y_train, X_test, y_test = get_data()
+    train_data = TensorDataset(X_train, y_train)
+    test_data = TensorDataset(X_test, y_test)
+    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>)
+    test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=<span class="hljs-literal">False</span>)
+
+    <span class="hljs-comment"># 配置模型计算设备</span>
+    model.to(device)
+    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):
+        <span class="hljs-comment"># 训练</span>
+        model.train()
+        <span class="hljs-comment"># 收集loss，观察变化</span>
+        watch_loss = []
+        <span class="hljs-comment"># 划分batch</span>
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> train_loader:
+            x, y = x.to(device), y.to(device)
+            <span class="hljs-comment"># 梯度归零</span>
+            optim.zero_grad()
+            <span class="hljs-comment"># 前向传播</span>
+            loss = model(x, y)
+            <span class="hljs-comment"># 反向传播</span>
+            loss.backward()
+            <span class="hljs-comment"># 更新参数</span>
+            optim.step()
+            <span class="hljs-comment"># 收集loss</span>
+            watch_loss.append(loss.item())
+        acc = test_accuracy(model, test_loader, device)
+        <span class="hljs-comment"># 输出loss和本轮epoch的准确率</span>
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Epoch: <span class="hljs-subst">{epoch+<span class="hljs-number">1</span>:2d}</span>/<span class="hljs-subst">{epochs}</span> | &quot;</span> 
+              <span class="hljs-string">f&quot;Loss: <span class="hljs-subst">{np.mean(watch_loss):<span class="hljs-number">.4</span>f}</span> | &quot;</span>
+              <span class="hljs-string">f&quot;Train Acc: <span class="hljs-subst">{acc:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()
+</code></pre>
+<h3 id="作业2使用batch-normalization">作业2：使用Batch Normalization</h3>
+<pre><code class="language-python"><span class="hljs-comment"># -*- encoding:utf-8 -*-</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;
+@Author: 阿布
+@Date: 2025/03/18 14:26
+@File: hw2_bn_olivettiface.py
+&#x27;&#x27;&#x27;</span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> fetch_olivetti_faces
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> TensorDataset, DataLoader
+
+
+<span class="hljs-comment"># 定义模型</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Olivettiface</span>(nn.Module):
+    <span class="hljs-string">&quot;&quot;&quot;
+    epochs = 50
+    lr = 0.01
+    Epoch: 50/50 | Loss: 0.0005 | Train Acc: 0.9500
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, input_size, hidden_size, output_size</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        self.linear_1 = nn.Linear(input_size, hidden_size)
+        self.linear_2 = nn.Linear(hidden_size, output_size)
+        self.bn1 = nn.BatchNorm1d(hidden_size)
+        self.activate = nn.ReLU()
+        self.loss_fn = nn.CrossEntropyLoss()
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, y=<span class="hljs-literal">None</span></span>):
+        log_x = self.linear_1(x)
+        bn_x = self.bn1(log_x)
+        act_x = self.activate(bn_x)
+        y_pred = self.linear_2(act_x)
+        <span class="hljs-keyword">if</span> y <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> self.loss_fn(y_pred, y)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> y_pred
+
+
+<span class="hljs-comment"># 获取数据，划分数据集</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_data</span>():
+    data_path = os.path.dirname(__file__)
+    faces = fetch_olivetti_faces(data_home=data_path, shuffle=<span class="hljs-literal">True</span>)
+    X = faces.data
+    Y = faces.target
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, Y, test_size=<span class="hljs-number">0.2</span>, stratify=Y, random_state=<span class="hljs-number">35</span>)
+    
+    <span class="hljs-keyword">return</span> (
+        torch.FloatTensor(X_train),
+        torch.LongTensor(y_train),
+        torch.FloatTensor(X_test),
+        torch.LongTensor(y_test)
+    )
+
+
+<span class="hljs-comment"># 测试准确率</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test_accuracy</span>(<span class="hljs-params">model, test_data, device</span>):
+    model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 设置为评估模式</span>
+    model.to(device)
+    correct = <span class="hljs-number">0</span>
+    total = <span class="hljs-number">0</span>
+    
+    <span class="hljs-keyword">with</span> torch.no_grad():  <span class="hljs-comment"># 关闭梯度计算，加快推理速度</span>
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> test_data:
+            x, y = x.to(device), y.to(device)  <span class="hljs-comment"># 传输到设备</span>
+            outputs = model(x)  <span class="hljs-comment"># 前向传播</span>
+            _, predicted = torch.<span class="hljs-built_in">max</span>(outputs, <span class="hljs-number">1</span>)  <span class="hljs-comment"># 取最大概率的类别</span>
+            correct += (predicted == y).<span class="hljs-built_in">sum</span>().item()
+            total += y.size(<span class="hljs-number">0</span>)
+    
+    accuracy = correct / total
+    <span class="hljs-keyword">return</span> accuracy
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)
+    epochs = <span class="hljs-number">50</span>
+    batch_size = <span class="hljs-number">80</span>
+    lr = <span class="hljs-number">0.01</span>
+    input_size = <span class="hljs-number">4096</span>
+    hidden_size = <span class="hljs-number">512</span>
+    output_size = <span class="hljs-number">40</span>
+
+    model = Olivettiface(input_size, hidden_size, output_size)
+    optim = torch.optim.Adam(model.parameters(), lr=lr)
+    model.to(device)
+
+    <span class="hljs-comment"># 获取数据</span>
+    X_train, y_train, X_test, y_test = get_data()
+    train_data = TensorDataset(X_train, y_train)
+    test_data = TensorDataset(X_test, y_test)
+    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>)
+    test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=<span class="hljs-literal">False</span>)
+
+    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):
+        model.train()
+        watch_loss = []
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> train_loader:
+            x, y = x.to(device), y.to(device)
+            optim.zero_grad()
+            loss = model(x, y)
+            loss.backward()
+            optim.step()
+            watch_loss.append(loss.item())
+        <span class="hljs-comment"># 计算测试准确率</span>
+        acc = test_accuracy(model, test_loader, device)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Epoch: <span class="hljs-subst">{epoch+<span class="hljs-number">1</span>:2d}</span>/<span class="hljs-subst">{epochs}</span> | &quot;</span> 
+              <span class="hljs-string">f&quot;Loss: <span class="hljs-subst">{np.mean(watch_loss):<span class="hljs-number">.4</span>f}</span> | &quot;</span>
+              <span class="hljs-string">f&quot;Train Acc: <span class="hljs-subst">{acc:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+    torch.save(model.state_dict(), <span class="hljs-string">&#x27;bn_olivettiface.pth&#x27;</span>)
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()
+</code></pre>
+<h3 id="作业2使用dropout">作业2：使用dropout</h3>
+<pre><code class="language-python"><span class="hljs-comment"># -*- encoding:utf-8 -*-</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;
+@Author: 阿布
+@Date: 2025/03/18 14:26
+@File: hw2_dropout_olivettiface.py
+&#x27;&#x27;&#x27;</span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> fetch_olivetti_faces
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> TensorDataset, DataLoader
+
+
+<span class="hljs-comment"># 定义模型</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Olivettiface</span>(nn.Module):
+    <span class="hljs-string">&quot;&quot;&quot;
+    dropout层时，loss、acc变化如下：
+    增大训练轮数、降低学习率，最终acc到90以上
+    lr由01降低为0.001, epoch由20增大为100, acc从0.025增大为0.96
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, input_size, hidden_size, output_size</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        self.linear_1 = nn.Linear(input_size, hidden_size)
+        self.linear_2 = nn.Linear(hidden_size, output_size)
+        self.dp = nn.Dropout(p=<span class="hljs-number">0.2</span>)
+        self.activate = nn.ReLU()
+        self.loss_fn = nn.CrossEntropyLoss()
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, y=<span class="hljs-literal">None</span></span>):
+        log_x = self.linear_1(x)
+        act_x = self.activate(log_x)
+        dp_x = self.dp(act_x)
+        y_pred = self.linear_2(dp_x)
+        <span class="hljs-keyword">if</span> y <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> self.loss_fn(y_pred, y)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> y_pred
+
+
+<span class="hljs-comment"># 获取数据，划分数据集</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_data</span>():
+    data_path = os.path.dirname(__file__)
+    faces = fetch_olivetti_faces(data_home=data_path, shuffle=<span class="hljs-literal">True</span>)
+    X = faces.data
+    Y = faces.target
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, Y, test_size=<span class="hljs-number">0.2</span>, stratify=Y, random_state=<span class="hljs-number">35</span>)
+    <span class="hljs-keyword">return</span> (
+        torch.FloatTensor(X_train),
+        torch.LongTensor(y_train),
+        torch.FloatTensor(X_test),
+        torch.LongTensor(y_test)
+    )
+
+
+<span class="hljs-comment"># 测试准确率</span>
+<span class="hljs-comment"># 测试准确率</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test_accuracy</span>(<span class="hljs-params">model, test_data, device</span>):
+    model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 设置为评估模式</span>
+    model.to(device)
+    correct = <span class="hljs-number">0</span>
+    total = <span class="hljs-number">0</span>
+    
+    <span class="hljs-keyword">with</span> torch.no_grad():  <span class="hljs-comment"># 关闭梯度计算，加快推理速度</span>
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> test_data:
+            x, y = x.to(device), y.to(device)  <span class="hljs-comment"># 传输到设备</span>
+            outputs = model(x)  <span class="hljs-comment"># 前向传播</span>
+            _, predicted = torch.<span class="hljs-built_in">max</span>(outputs, <span class="hljs-number">1</span>)  <span class="hljs-comment"># 取最大概率的类别</span>
+            correct += (predicted == y).<span class="hljs-built_in">sum</span>().item()
+            total += y.size(<span class="hljs-number">0</span>)
+    
+    accuracy = correct / total
+    <span class="hljs-keyword">return</span> accuracy
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)
+    epochs = <span class="hljs-number">100</span>
+    batch_size = <span class="hljs-number">80</span>
+    lr = <span class="hljs-number">0.001</span>
+    input_size = <span class="hljs-number">4096</span>
+    hidden_size = <span class="hljs-number">512</span>
+    output_size = <span class="hljs-number">40</span>
+
+    model = Olivettiface(input_size, hidden_size, output_size)
+    optim = torch.optim.Adam(model.parameters(), lr=lr)
+    model.to(device)
+
+    <span class="hljs-comment"># 获取数据</span>
+    X_train, y_train, X_test, y_test = get_data()
+    train_data = TensorDataset(X_train, y_train)
+    test_data = TensorDataset(X_test, y_test)
+    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>)
+    test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=<span class="hljs-literal">False</span>)
+
+    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):
+        model.train()
+        watch_loss = []
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> train_loader:
+            x, y = x.to(device), y.to(device)
+            optim.zero_grad()
+            loss = model(x, y)
+            loss.backward()
+            optim.step()
+            watch_loss.append(loss.item())
+        <span class="hljs-comment"># 计算测试准确率</span>
+        acc = test_accuracy(model, test_loader, device)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Epoch: <span class="hljs-subst">{epoch+<span class="hljs-number">1</span>:2d}</span>/<span class="hljs-subst">{epochs}</span> | &quot;</span> 
+              <span class="hljs-string">f&quot;Loss: <span class="hljs-subst">{np.mean(watch_loss):<span class="hljs-number">.4</span>f}</span> | &quot;</span>
+              <span class="hljs-string">f&quot;Train Acc: <span class="hljs-subst">{acc:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()
+</code></pre>
+<h3 id="作业2使用bndropout">作业2：使用bn+dropout</h3>
+<pre><code class="language-python"><span class="hljs-comment"># -*- encoding:utf-8 -*-</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;
+@Author: 阿布
+@Date: 2025/03/18 14:26
+@File: hw2_dropout_bn_olivettiface.py
+&#x27;&#x27;&#x27;</span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> fetch_olivetti_faces
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> TensorDataset, DataLoader
+
+
+<span class="hljs-comment"># 定义模型</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Olivettiface</span>(nn.Module):
+    <span class="hljs-string">&quot;&quot;&quot;
+    bn + dropout:
+    1. lr 由 0.1 -&gt; 0.01
+    2. epoch 由 20 - &gt; 100
+    3. acc 由 0.9 -&gt; 0.975
+    Epoch: 100/100 | Loss: 0.0004 | Train Acc: 0.9750 
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, input_size, hidden_size, output_size</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        self.linear_1 = nn.Linear(input_size, hidden_size)
+        self.linear_2 = nn.Linear(hidden_size, output_size)
+        self.bn1 = nn.BatchNorm1d(hidden_size)
+        self.dp = nn.Dropout(p=<span class="hljs-number">0.3</span>)
+        self.activate = nn.ReLU()
+        self.loss_fn = nn.CrossEntropyLoss()
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, y=<span class="hljs-literal">None</span></span>):
+        log_x = self.linear_1(x)
+        bn_x = self.bn1(log_x)
+        act_x = self.activate(bn_x)
+        dp_x = self.dp(act_x)
+        y_pred = self.linear_2(dp_x)
+        <span class="hljs-keyword">if</span> y <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> self.loss_fn(y_pred, y)
+        <span class="hljs-keyword">return</span> y_pred
+
+
+<span class="hljs-comment"># 获取数据，划分数据集</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_data</span>():
+    data_path = os.path.dirname(__file__)
+    faces = fetch_olivetti_faces(data_home=data_path, shuffle=<span class="hljs-literal">True</span>)
+    X = faces.data
+    Y = faces.target
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, Y, test_size=<span class="hljs-number">0.2</span>, stratify=Y, random_state=<span class="hljs-number">35</span>)
+    <span class="hljs-keyword">return</span> (
+        torch.FloatTensor(X_train),
+        torch.LongTensor(y_train),
+        torch.FloatTensor(X_test),
+        torch.LongTensor(y_test)
+    )
+
+
+<span class="hljs-comment"># 测试准确率</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test_accuracy</span>(<span class="hljs-params">model, test_data, device</span>):
+    model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 设置为评估模式</span>
+    model.to(device)
+    correct = <span class="hljs-number">0</span>
+    total = <span class="hljs-number">0</span>
+    
+    <span class="hljs-keyword">with</span> torch.no_grad():  <span class="hljs-comment"># 关闭梯度计算，加快推理速度</span>
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> test_data:
+            x, y = x.to(device), y.to(device)  <span class="hljs-comment"># 传输到设备</span>
+            outputs = model(x)  <span class="hljs-comment"># 前向传播</span>
+            _, predicted = torch.<span class="hljs-built_in">max</span>(outputs, <span class="hljs-number">1</span>)  <span class="hljs-comment"># 取最大概率的类别</span>
+            correct += (predicted == y).<span class="hljs-built_in">sum</span>().item()
+            total += y.size(<span class="hljs-number">0</span>)
+    
+    accuracy = correct / total
+    <span class="hljs-keyword">return</span> accuracy
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)
+    epochs = <span class="hljs-number">100</span>
+    batch_size = <span class="hljs-number">80</span>
+    lr = <span class="hljs-number">0.01</span>
+    input_size = <span class="hljs-number">4096</span>
+    hidden_size = <span class="hljs-number">512</span>
+    output_size = <span class="hljs-number">40</span>
+
+    model = Olivettiface(input_size, hidden_size, output_size)
+    optim = torch.optim.Adam(model.parameters(), lr=lr)
+    model.to(device)
+
+    <span class="hljs-comment"># 获取数据</span>
+    X_train, y_train, X_test, y_test = get_data()
+    train_data = TensorDataset(X_train, y_train)
+    test_data = TensorDataset(X_test, y_test)
+    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>)
+    test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=<span class="hljs-literal">False</span>)
+
+    <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):
+        model.train()
+        watch_loss = []
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> train_loader:
+            x, y = x.to(device), y.to(device)
+            optim.zero_grad()
+            loss = model(x, y)
+            loss.backward()
+            optim.step()
+            watch_loss.append(loss.item())
+        <span class="hljs-comment"># 计算测试准确率</span>
+        acc = test_accuracy(model, test_loader, device)
+        <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Epoch: <span class="hljs-subst">{epoch+<span class="hljs-number">1</span>:2d}</span>/<span class="hljs-subst">{epochs}</span> | &quot;</span> 
+              <span class="hljs-string">f&quot;Loss: <span class="hljs-subst">{np.mean(watch_loss):<span class="hljs-number">.4</span>f}</span> | &quot;</span>
+              <span class="hljs-string">f&quot;Train Acc: <span class="hljs-subst">{acc:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()
+</code></pre>
+<h3 id="作业3基于bn层使用不同优化器">作业3：基于bn层使用不同优化器</h3>
+<pre><code class="language-python"><span class="hljs-comment"># -*- encoding:utf-8 -*-</span>
+<span class="hljs-string">&#x27;&#x27;&#x27;
+@Author: 阿布
+@Date: 2025/03/18 14:25
+@File: hw3_bn_mutil_optim_olivettiface.py
+&#x27;&#x27;&#x27;</span>
+<span class="hljs-keyword">import</span> os
+<span class="hljs-keyword">import</span> torch
+<span class="hljs-keyword">import</span> torch.nn <span class="hljs-keyword">as</span> nn
+<span class="hljs-keyword">import</span> numpy <span class="hljs-keyword">as</span> np
+<span class="hljs-keyword">from</span> sklearn.datasets <span class="hljs-keyword">import</span> fetch_olivetti_faces
+<span class="hljs-keyword">from</span> sklearn.model_selection <span class="hljs-keyword">import</span> train_test_split
+<span class="hljs-keyword">from</span> torch.utils.data <span class="hljs-keyword">import</span> TensorDataset, DataLoader
+
+
+<span class="hljs-comment"># 定义模型</span>
+<span class="hljs-keyword">class</span> <span class="hljs-title class_">Olivettiface</span>(nn.Module):
+    <span class="hljs-string">&quot;&quot;&quot;
+    基于bn层，测试不同的优化器，loss、acc变化如下
+    
+    调整：
+    epochs = 100
+    lr = 0.01
+
+    loss: 0.0127, acc: 0.9750
+    &quot;&quot;&quot;</span>
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">__init__</span>(<span class="hljs-params">self, input_size, hidden_size, output_size</span>):
+        <span class="hljs-built_in">super</span>().__init__()
+        self.linear_1 = nn.Linear(input_size, hidden_size)
+        self.linear_2 = nn.Linear(hidden_size, output_size)
+        self.bn1 = nn.BatchNorm1d(hidden_size)
+        self.activate = nn.ReLU()
+        self.loss_fn = nn.CrossEntropyLoss()
+
+    <span class="hljs-keyword">def</span> <span class="hljs-title function_">forward</span>(<span class="hljs-params">self, x, y=<span class="hljs-literal">None</span></span>):
+        log_x = self.linear_1(x)
+        bn_x = self.bn1(log_x)
+        act_x = self.activate(bn_x)
+        y_pred = self.linear_2(act_x)
+        <span class="hljs-keyword">if</span> y <span class="hljs-keyword">is</span> <span class="hljs-keyword">not</span> <span class="hljs-literal">None</span>:
+            <span class="hljs-keyword">return</span> self.loss_fn(y_pred, y)
+        <span class="hljs-keyword">else</span>:
+            <span class="hljs-keyword">return</span> y_pred
+
+
+<span class="hljs-comment"># 获取数据，划分数据集</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">get_data</span>():
+    data_path = os.path.dirname(__file__)
+    faces = fetch_olivetti_faces(data_home=data_path, shuffle=<span class="hljs-literal">True</span>)
+    X = faces.data
+    Y = faces.target
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, Y, test_size=<span class="hljs-number">0.2</span>, stratify=Y, random_state=<span class="hljs-number">35</span>)
+    <span class="hljs-keyword">return</span> (
+        torch.FloatTensor(X_train),
+        torch.LongTensor(y_train),
+        torch.FloatTensor(X_test),
+        torch.LongTensor(y_test)
+    )
+
+
+<span class="hljs-comment"># 测试准确率</span>
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">test_accuracy</span>(<span class="hljs-params">model, test_data, device</span>):
+    model.<span class="hljs-built_in">eval</span>()  <span class="hljs-comment"># 设置为评估模式</span>
+    model.to(device)
+    correct = <span class="hljs-number">0</span>
+    total = <span class="hljs-number">0</span>
+    
+    <span class="hljs-keyword">with</span> torch.no_grad():  <span class="hljs-comment"># 关闭梯度计算，加快推理速度</span>
+        <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> test_data:
+            x, y = x.to(device), y.to(device)  <span class="hljs-comment"># 传输到设备</span>
+            outputs = model(x)  <span class="hljs-comment"># 前向传播</span>
+            _, predicted = torch.<span class="hljs-built_in">max</span>(outputs, <span class="hljs-number">1</span>)  <span class="hljs-comment"># 取最大概率的类别</span>
+            correct += (predicted == y).<span class="hljs-built_in">sum</span>().item()
+            total += y.size(<span class="hljs-number">0</span>)
+    
+    accuracy = correct / total
+    <span class="hljs-keyword">return</span> accuracy
+
+
+<span class="hljs-keyword">def</span> <span class="hljs-title function_">main</span>():
+    device = torch.device(<span class="hljs-string">&quot;cuda&quot;</span> <span class="hljs-keyword">if</span> torch.cuda.is_available() <span class="hljs-keyword">else</span> <span class="hljs-string">&quot;cpu&quot;</span>)
+    epochs = <span class="hljs-number">100</span>
+    batch_size = <span class="hljs-number">80</span>
+    lr = <span class="hljs-number">0.01</span>
+    input_size = <span class="hljs-number">4096</span>
+    hidden_size = <span class="hljs-number">512</span>
+    output_size = <span class="hljs-number">40</span>
+    optims = {
+        <span class="hljs-string">&quot;Adam&quot;</span>: torch.optim.Adam,
+        <span class="hljs-string">&quot;SGD&quot;</span>: torch.optim.SGD,
+        <span class="hljs-string">&quot;RMSprop&quot;</span>: torch.optim.RMSprop
+    }
+
+    <span class="hljs-comment"># 获取数据</span>
+    X_train, y_train, X_test, y_test = get_data()
+    train_data = TensorDataset(X_train, y_train)
+    test_data = TensorDataset(X_test, y_test)
+    train_loader = DataLoader(train_data, batch_size=batch_size, shuffle=<span class="hljs-literal">True</span>)
+    test_loader = DataLoader(test_data, batch_size=batch_size, shuffle=<span class="hljs-literal">False</span>)
+
+    <span class="hljs-keyword">for</span> o_name, optim <span class="hljs-keyword">in</span> optims.items():
+        model = Olivettiface(input_size, hidden_size, output_size).to(device)
+        optim = optim(model.parameters(), lr=lr)
+        <span class="hljs-keyword">for</span> epoch <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(epochs):
+            model.train()
+            watch_loss = []
+            <span class="hljs-keyword">for</span> x, y <span class="hljs-keyword">in</span> train_loader:
+                x, y = x.to(device), y.to(device)
+                optim.zero_grad()
+                loss = model(x, y)
+                loss.backward()
+                optim.step()
+                watch_loss.append(loss.item())
+            <span class="hljs-comment"># 计算测试准确率</span>
+            acc = test_accuracy(model, test_loader, device)
+            <span class="hljs-built_in">print</span>(<span class="hljs-string">f&quot;Optim:<span class="hljs-subst">{o_name}</span> | &quot;</span>
+                <span class="hljs-string">f&quot;Epoch: <span class="hljs-subst">{epoch+<span class="hljs-number">1</span>:2d}</span>/<span class="hljs-subst">{epochs}</span> | &quot;</span> 
+                <span class="hljs-string">f&quot;Loss: <span class="hljs-subst">{np.mean(watch_loss):<span class="hljs-number">.4</span>f}</span> | &quot;</span>
+                <span class="hljs-string">f&quot;Train Acc: <span class="hljs-subst">{acc:<span class="hljs-number">.4</span>f}</span>&quot;</span>)
+
+
+<span class="hljs-keyword">if</span> __name__ == <span class="hljs-string">&#x27;__main__&#x27;</span>:
+    main()
+</code></pre>
+<h3 id="作业4注册kaggle账号获取免费资源">作业4：注册kaggle账号，获取免费资源</h3>
+<p>略</p>
+
+            
+            
+        </body>
+        </html>
